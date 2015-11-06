@@ -3,10 +3,10 @@
  * Created by PhpStorm.
  * User: JongYoon
  * Date: 2015-11-04
- * Time: ¿ÀÈÄ 2:29
+ * Time: ï¿½ï¿½ï¿½ï¿½ 2:29
  */
 
-function add_user($argInfo){
-    $query = "insert into member (name, id, password, e_mail) values ('".$argInfo['name']."','".$argInfo['id']."','".$argInfo['password']."','".$argInfo['e_mail']."')";
-    return mysqli_query($query) or die ("SignUP Failed");
+function add_user($memInfo){
+    $query = "insert into member (id, password, nick,  e_mail) values ('".$memInfo['id']."','".$memInfo['password']."','".$memInfo['nick']."','".$memInfo['mail']."')";
+    return mysqli_query(DB_CONN(), $query) or die ("SignUP Failed");
 }

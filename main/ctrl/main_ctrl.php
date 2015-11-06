@@ -21,8 +21,6 @@ $Template -> load('../model/sign_up.php');
 $Template -> load('../model/search.php');
 $Template -> load('../model/song_list.php');*/
 
-http://localhost/PHP/PJ/B_music/index.html
-
 
 
 //echo $REQUEST['func']."<br>";
@@ -31,51 +29,90 @@ http://localhost/PHP/PJ/B_music/index.html
 switch ($menu){
     case 1:{
         if($REQUEST['func'] == 100){
-            $POST['id'] = isset($_POST['id']) ? $_POST['id'] : null;
-            $POST['password'] = isset($_POST['password']) ? $_POST['password'] : null;
-            $stmt = login($POST['id'], $POST['password']);
-            //echo $stmt."<Br>";
-            switch($stmt){
-                case 0:{
-                    $message = "Welcome ".$POST['id'];
-                    //echo "<script>alert('$message')</script>";
-                    $_SESSION['message'] = $message;
-                    $func = null;
-                    break;
-                }
+            $login['id'] = isset($_POST['id']) ? $_POST['id'] : null;
+            if($login['id']) {
+                $login['password'] = isset($_POST['password']) ? $_POST['password'] : null;
+                $stmt = login($login);
+                //echo $stmt."<Br>";
+                switch ($stmt) {
+                    case 0: {
+                        $message = "Welcome " . $login['id'];
+                        //$_SESSION['message'] = $message;
+                        $func = null;
+                        break;
+                    }
 
-                case 1:{
-                    $message = "Plz Check Your Password";
-                    $func = 100;
-                    break;
-                }
+                    case 1: {
+                        $message = "Plz Check Your Password";
+                        $func = 100;
+                        break;
+                    }
 
-                case -1:{
-                    $message = "Plz Check Your ID";
-                    $func = 100;
-                    break;
+                    case -1: {
+                        $message = "Plz Check Your ID";
+                        $func = 100;
+                        break;
+                    }
                 }
+                echo pop_message($message);
             }
-            $_SESSION['message'] = $message;
-            //echo $_SESSION['message'];
-            //echo "<BR>".$message."<br>".$func."<br>";
-            //header("location:../view/main_view.php?func=$func");
-            echo "<script>location.replace('../view/main_view.php?func=$func')</script>";
+            echo load($func, $REQUEST['page']);
+
 
         }
 
         elseif($REQUEST['func'] == 110){
+            $memInfo['id'] = isset($_POST['id']) ? $_POST['id'] : null;
+            if($memInfo['id']) {
+                $memInfo['password'] = isset($_POST['password']) ? $_POST['password'] : null;
+                $memInfo['nick'] = isset($_POST['nick']) ? $_POST['nick'] : null;
+                $memInfo['mail'] = isset($_POST['mail']) ? $_POST['mail'] : null;
+                $stmt = add_user($memInfo);
+                echo $stmt;
+                switch ($stmt) {
+                    case true: {
+                        $message = "SignUp Complete";
+                        $func = 100;
+                        break;
+                    }
+
+                    case false: {
+                        $message = "SignUp Failed";
+                        $func = 110;
+                        break;
+                    }
+                }
+                echo pop_message($message);
+            }
+            echo load($func, $REQUEST['page'], $key);
 
         }
+
+
         break;
     }
 
     case 2:{
+        $key = isset($_POST['key']) ? $_POST['key'] : null;
+        $key_option = isset($_POST['key_option']) ? $_POST['key_option'] : "total";
 
+        $arr = song_list($view, $REQUEST['page'],$key, $key_option);
+        $_SESSION['list'] = $arr;
+        echo load($func, $REQUEST['page'], $key);
         break;
     }
 
     case 3:{
+        if($REQUEST['func']==300){
+            $key = isset($_POST['key']) ? $_POST['key'] : null;
+            $key_option = isset($_POST['key_option']) ? $_POST['key_option'] : "total";
+
+            $arr = song_list($view, $REQUEST['page'],$key, $key_option);
+            $_SESSION['list'] = $arr;
+
+            print_r($arr);
+            //echo load($func, $REQUEST['page'], $key);
+        }
 
         break;
     }

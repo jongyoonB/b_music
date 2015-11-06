@@ -35,6 +35,12 @@ function returnValue($argQuery){
     return $arrTemp;
 }
 
-function page_nation(){
+function pop_message($argMessage){
+    echo $argMessage;
+    return "<script>alert('$argMessage')</script>";
+}
+
+function load($argFunc, $argPage, $argKey){
+    return "<script>location.replace('../view/main_view.php?func=$argFunc&page=$argPage&key=$argKey')</script>";
 
 }

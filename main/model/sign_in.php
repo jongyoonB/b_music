@@ -7,17 +7,17 @@
  */
 
 
-function login($argID, $argPD)
+function login($login)
 {
 
-    $query = "select * from member where id = '" . $argID . "'";
+    $query = "select * from member where id = '" . $login['id'] . "'";
     //echo $query."<br>";
     if($DBvalue = mysqli_fetch_array(mysqli_query(DB_CONN(), $query))){;
         //echo $DBvalue['id'];
         //echo $DBvalue['password'];
-        if ($DBvalue['id'] == $argID) {
+        if ($DBvalue['id'] == $login['id']) {
 
-            if ($DBvalue['password'] == $argPD) {
+            if ($DBvalue['password'] == $login['password']) {
                 return 0;
             } else {
                 return 1;

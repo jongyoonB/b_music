@@ -10,22 +10,45 @@ session_start();
 
 ?>
 
-<header>
-    <?php include ('./menu/header.php')?>
-</header>
+<head>
+    <style>
+        div {
+            border: solid 1px;
+        }
 
-<nav>
-    <?php include ('./menu/main_menu.php')?>
-</nav>
 
-<aside>
-    <?php include ('./menu/left_menu.php')?>
-</aside>
+    </style>
+</head>
+<div>
+    <div>
+        <header><?php include ('./menu/header.php')?></header>
+    </div>
 
-<section>
-    <?php include ('./body/common/default_view.php')?>
-</section>
+    <div>
+        <div>
+            <nav><?php include ('./menu/main_menu.php')?></nav>
+        </div>
 
-<footer>
-    <?php include ('./menu/footer.php')?>
-</footer>
+        <span style="border-right: double 1px">
+            <?php include ('./menu/left_menu.php')?>
+        </span>
+
+        <span>
+            <?php include ('./body/common/default_view.php')?>
+        </span>
+
+    </div>
+
+    <div>
+        <footer><?php include ('./menu/footer.php')?></footer>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+

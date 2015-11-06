@@ -15,13 +15,18 @@ $template->load('./model/sign_in.php');
 $template->load('./model/sign_up.php');
 $template->load('./model/search.php');
 $template->load('./model/song_list.php');
+$option = $_POST['key_option'];
+print_r($option)
+//print_r(array_filter($option));
 
+
+/*
 $POST['id'] = $_POST['id'];
 $POST['password'] = $_POST['password'];
 $template->setData('id', $POST['id']);
 $template->setData('password',$POST['password']);
 
-$template->load('./testview.php');
+$template->load('./testview.php');*/
 
 /*
 include_once './common/common_data.php';

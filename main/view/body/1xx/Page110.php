@@ -11,12 +11,12 @@
 <body>
     <h2>가입은 처음이지?</h2>
     <img src="http://i.imgur.com/X1bgKg4.jpg" width="50%" height="40%">
-    <form action = "../ctrl/main_ctrl.php" method="post">
+    <form action = "../ctrl/main_ctrl.php?func=110" method="post">
         <br>
-        name : <input type="text" name = "name" required><br><br>
         ID : <input type="text" name = "id" required><br><br>
         PD : <input type="text" name = "password" required>
-        <input type="hidden" name="func" value="100">
+        Nick&nbspname : <input type="text" name = "nick" required><br><br>
+        E-Mail : <input type="email" name = "mail" required><br><br>
         <input type="submit" value="SignUp">
 </form>
 </body>

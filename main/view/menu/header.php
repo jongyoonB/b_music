@@ -3,8 +3,8 @@
  * Created by PhpStorm.
  * User: JongYoon
  * Date: 2015-11-04
- * Time: ¿ÀÈÄ 2:22
+ * Time: ï¿½ï¿½ï¿½ï¿½ 2:22
  */
 
-
+echo "header";
 ?>

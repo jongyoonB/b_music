@@ -7,8 +7,15 @@
  */
 
 ?>
+<form action="./test.php" method="post">
+    전체<input type="checkbox" name="key_option[]" value="total"><br>
+    제목<input type="checkbox" name="key_option[]" value="title"><br>
+    앨범<input type="checkbox" name="key_option[]" value="album"><br>
+    가수<input type="checkbox" name="key_option[]" value="artist"><br>
+    <input type="submit">
+</form>
 
-<html>
+<!--<html>
 <head>
     <title>Login 해양!</title>
     <style>
@@ -29,3 +36,4 @@
 </div>
 </body>
 </html>
+-->
