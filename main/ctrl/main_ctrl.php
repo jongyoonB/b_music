@@ -5,8 +5,10 @@
  * Date: 2015-11-04
  * Time: ���� 2:22
  */
+session_start();
 
 include ('../common/common_data.php');
+include_once ('../common/common_info.php');
 include_once ('../model/sign_in.php');
 include_once ('../model/sign_up.php');
 include_once ('../model/search.php');
@@ -36,9 +38,35 @@ switch ($menu){
                 //echo $stmt."<Br>";
                 switch ($stmt) {
                     case 0: {
-                        $message = "Welcome " . $login['id'];
+
+                        /* 0 -> success
+                         * 1 -> dupli
+                         * -1 -> logged-in
+                        */
+                        $check = logged_in($login['id']);
+
+                        switch($check){
+                            case 0:{
+                                $message = "Welcome " . $login['id'];
+                                $func = null;
+                                break;
+                            }
+
+                            case 1:{
+                                $message = "Plz Log-out from other browser";
+                                $func = 100;
+                                break;
+                            }
+
+                            case -1:{
+                                $message = "U Already Logged in";
+                                $func = null;
+                                break;
+                            }
+                        }
+
                         //$_SESSION['message'] = $message;
-                        $func = null;
+
                         break;
                     }
 
@@ -56,7 +84,8 @@ switch ($menu){
                 }
                 echo pop_message($message);
             }
-            echo load($func, $REQUEST['page']);
+            echo load($func);
+            //header('location: ../view/main_view.php?func='.$func);
 
 
         }
@@ -84,7 +113,8 @@ switch ($menu){
                 }
                 echo pop_message($message);
             }
-            echo load($func, $REQUEST['page'], $key);
+            echo load($func);
+            //header('location: ../view/main_view.php?func='.$func);
 
         }
 
@@ -93,26 +123,39 @@ switch ($menu){
     }
 
     case 2:{
+        //echo "sub = ".$sub."<br>";
+        switch ($sub){
+            case 0:{
+                $view = "top_100";
+                break;
+            }
+
+            case 1:{
+                $view = "song_list";
+                echo $view;
+                break;
+            }
+
+        }
+
         $key = isset($_POST['key']) ? $_POST['key'] : null;
         $key_option = isset($_POST['key_option']) ? $_POST['key_option'] : "total";
+        /*echo $key."<br>".$view."<br>".$REQUEST['page']."<br>";
+        print_r($key_option);
+        echo "<br>";*/
 
         $arr = song_list($view, $REQUEST['page'],$key, $key_option);
+        //print_r($arr);
+        //$_SESSION['numbPage'] = (count($arr) % per_page ==0) ? floor($numOfRows / per_page) : floor($numOfRows / per_page) +1;
         $_SESSION['list'] = $arr;
-        echo load($func, $REQUEST['page'], $key);
-        break;
-    }
+        //print_r($_SESSION['numbPage']);
+        //print_r($_SESSION['list']);
+        //echo "<br>".$REQUEST['page']."<br>".$key."<br>";
 
-    case 3:{
-        if($REQUEST['func']==300){
-            $key = isset($_POST['key']) ? $_POST['key'] : null;
-            $key_option = isset($_POST['key_option']) ? $_POST['key_option'] : "total";
 
-            $arr = song_list($view, $REQUEST['page'],$key, $key_option);
-            $_SESSION['list'] = $arr;
+        //header('location: ../view/main_view.php?func='.$func);
 
-            print_r($arr);
-            //echo load($func, $REQUEST['page'], $key);
-        }
+        echo load($REQUEST['func'], $REQUEST['page'], $key);
 
         break;
     }

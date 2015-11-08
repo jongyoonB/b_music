@@ -8,12 +8,25 @@
 
 include ('../common/common_data.php');
 
-
 if(!$REQUEST['func']){
     include (dirname(__FILE__).'/./mainPage.php');
 }
+
 else{
-    $path = (dirname(__FILE__)."/../".$menu."xx/Page".$REQUEST['func'].".php");
+
+    switch($menu){
+
+        case 2:
+        {
+            $path = (dirname(__FILE__)."/SongList.php");
+            break;
+        }
+
+        default:{
+            $path = (dirname(__FILE__)."/../".$menu."xx/Page".$REQUEST['func'].".php");
+        }
+    }
+
     include $path;
 }
 

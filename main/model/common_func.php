@@ -27,8 +27,13 @@ function DB_CONN(){
     return $conn;
 }
 
+function NumbOfRows($argResult){
+    return mysqli_num_rows($argResult);
+}
+
 function returnValue($argQuery){
     $result = mysqli_query(DB_CONN(), $argQuery);
+    print_r($argQuery);
     while($row = mysqli_fetch_array($result)){
         $arrTemp[] = $row;
     }

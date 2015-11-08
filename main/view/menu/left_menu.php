@@ -8,8 +8,9 @@
 
 echo "left";
 
-/*     300 : 종합
- *     310 : k-pop
- *     320 : rock
- *     330 : pop
+/*     200 : top-100
+ *     210 : total
+ *     220 : k-pop
+ *     230 : rock
+ *     240 : pop
  */
