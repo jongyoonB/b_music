@@ -3,6 +3,7 @@
     <style>
         form{
             font-size : 1.5em;
+
         }
     </style>
     <title>JOIN</title>

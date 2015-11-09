@@ -21,7 +21,7 @@ function song_list($view, $argPage, $arrKey, $arrKeyOption){
 
     //view
     $query = "select `곡 명`, `앨범`, `아티스트`, `장르`, `발매 일`, url from $view";
-    echo count($arrKeyOption)."<br><br>";
+    //echo count($arrKeyOption)."<br><br>";
     if($arrKey) {
         if ($arrKeyOption) {
             $query .= " where ";

@@ -14,16 +14,13 @@
  *
  *
 */
-echo "main<br>";
-
-
 
 ?>
 
-<a href = "../view/main_view.php?func=100">100&nbsp로그인</a><br><br>
+<a href = "../view/main_view.php?func=100">100&nbsp로그인</a>&nbsp&nbsp
 
-<a href = "../view/main_view.php?func=110">110&nbsp가입</a><br><br>
+<a href = "../view/main_view.php?func=110">110&nbsp가입</a>&nbsp&nbsp
 
-<a href = "../ctrl/main_ctrl.php?func=200&page=1">200&nbsptop100</a><br><br>
+<a href = "../ctrl/main_ctrl.php?func=200&page=1">200&nbsptop100</a>&nbsp&nbsp
 
-<a href = "../ctrl/main_ctrl.php?func=210&page=1">210&nbsp전체</a><br><br>
+<a href = "../ctrl/main_ctrl.php?func=210&page=1">210&nbsp전체</a>&nbsp&nbsp

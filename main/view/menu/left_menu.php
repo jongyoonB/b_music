@@ -6,7 +6,7 @@
  * Time: ���� 2:23
  */
 
-echo "left";
+echo "left menu  section";
 
 /*     200 : top-100
  *     210 : total

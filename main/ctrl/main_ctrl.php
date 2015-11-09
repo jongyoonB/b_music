@@ -97,7 +97,7 @@ switch ($menu){
                 $memInfo['nick'] = isset($_POST['nick']) ? $_POST['nick'] : null;
                 $memInfo['mail'] = isset($_POST['mail']) ? $_POST['mail'] : null;
                 $stmt = add_user($memInfo);
-                echo $stmt;
+                //echo $stmt;
                 switch ($stmt) {
                     case true: {
                         $message = "SignUp Complete";
@@ -132,7 +132,7 @@ switch ($menu){
 
             case 1:{
                 $view = "song_list";
-                echo $view;
+                //echo $view;
                 break;
             }
 
