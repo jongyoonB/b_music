@@ -7,3 +7,4 @@
  */
 
 define("perPage",5);
+define("perBlock",10);

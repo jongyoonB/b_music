@@ -1,10 +1,5 @@
-<style>
-    span{
-        /*border: solid 1px;
-        font-size: 3em;*/
-    }
-</style>
-        <header>
+<div style="width: 100%">
+<header style="width: 100%; border: solid">
             <span>번호</span>
             <span>곡</span>
             <span>아티스트</span>
@@ -14,7 +9,7 @@
         </header>
 
 
-        <section>
+        <section style="width: 100%; border:solid">
             <?php
                 //include (dirname(__FILE__).'/../../../common/common_data.php');
                 //session_start();
@@ -47,3 +42,4 @@
         </section>
 
 
+</div>

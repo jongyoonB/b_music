@@ -6,11 +6,10 @@
 
         }
     </style>
-    <title>JOIN</title>
+    <title>가입은 처음이지?</title>
 </head>
 
 <body>
-    <h2>가입은 처음이지?</h2>
     <img src="http://i.imgur.com/X1bgKg4.jpg" width="50%" height="40%">
     <form action = "../ctrl/main_ctrl.php?func=110" method="post">
         <br>

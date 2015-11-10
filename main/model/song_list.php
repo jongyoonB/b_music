@@ -62,7 +62,7 @@ function song_list($view, $argPage, $arrKey, $arrKeyOption){
 
     $_SESSION['numbOfRows'] = NumbOfRows(mysqli_query(DB_CONN(), $query));
     $query .= " limit ".(($argPage-1) * perPage).", ".perPage;
-    //echo $query."<Br>";
+    echo $query."<Br>";
     return returnValue($query);
 }
 

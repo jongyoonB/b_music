@@ -48,6 +48,7 @@ switch ($menu){
                         switch($check){
                             case 0:{
                                 $message = "Welcome " . $login['id'];
+                                $_SESSION['status'] = userStatus($login['id']);
                                 $func = null;
                                 break;
                             }
@@ -125,12 +126,12 @@ switch ($menu){
     case 2:{
         //echo "sub = ".$sub."<br>";
         switch ($sub){
-            case 0:{
+            case 1:{
                 $view = "top_100";
                 break;
             }
 
-            case 1:{
+            case 2:{
                 $view = "song_list";
                 //echo $view;
                 break;
@@ -138,13 +139,11 @@ switch ($menu){
 
         }
 
-        $key = isset($_POST['key']) ? $_POST['key'] : null;
-        $key_option = isset($_POST['key_option']) ? $_POST['key_option'] : "total";
+        $key = isset($_POST['key']) ? $_POST['key'] : $REQUEST['key'];
         /*echo $key."<br>".$view."<br>".$REQUEST['page']."<br>";
-        print_r($key_option);
+        print_r($_SESSION['key_option']);
         echo "<br>";*/
-
-        $arr = song_list($view, $REQUEST['page'],$key, $key_option);
+        $arr = song_list($view, $REQUEST['page'],$key, $_SESSION['key_option']);
         //print_r($arr);
         //$_SESSION['numbPage'] = (count($arr) % per_page ==0) ? floor($numOfRows / per_page) : floor($numOfRows / per_page) +1;
         $_SESSION['list'] = $arr;
@@ -155,7 +154,7 @@ switch ($menu){
 
         //header('location: ../view/main_view.php?func='.$func);
 
-        echo load($REQUEST['func'], $REQUEST['page'], $key);
+        //echo load($REQUEST['func'], $REQUEST['page'], $key);
 
         break;
     }

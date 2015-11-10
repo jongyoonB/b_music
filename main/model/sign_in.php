@@ -51,3 +51,8 @@ function logged_in($argID){
     }
 
 }
+
+function userStatus($argID){
+    $query = "select status from member where id=$argID";
+    return mysqli_fetch_array(mysqli_query(DB_CONN(), $query));
+}

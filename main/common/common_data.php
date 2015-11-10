@@ -13,11 +13,14 @@ $sub = intval(($REQUEST['func']/100 - $menu)*10);
 
 $REQUEST['page'] = isset($_REQUEST['page']) ? $_REQUEST['page'] : null;
 $REQUEST['key'] = isset($_REQUEST['key']) ? $_REQUEST['key'] : null;
-
+$_SESSION['key_option'] = isset($_POST['key_option']) ? $_POST['key_option'] & print_r($_SESSION['key_option']) : null;
+echo "<script>alert('')</script>" ;
 
 //echo "<script>alert('$REQUEST[func]')</script>";
 //echo "<script>alert('$menu')</script>";
 //echo "<script>alert('$sub')</script>";
+
+//echo "<script>alert('$REQUEST[key])</script>";
 /*echo "<script>alert('$REQUEST[func]')</script>";
 echo "<script>alert('$menu')</script>";
 echo "<script>alert('$sub')</script>";*/

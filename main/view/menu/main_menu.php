@@ -21,6 +21,4 @@
 
 <a href = "../view/main_view.php?func=110">110&nbsp가입</a>&nbsp&nbsp
 
-<a href = "../ctrl/main_ctrl.php?func=200&page=1">200&nbsptop100</a>&nbsp&nbsp
-
-<a href = "../ctrl/main_ctrl.php?func=210&page=1">210&nbsp전체</a>&nbsp&nbsp
+<a href = "../ctrl/main_ctrl.php?func=210&page=1">200&nbsp리스트</a>&nbsp&nbsp
