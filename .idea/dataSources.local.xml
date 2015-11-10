@@ -7,5 +7,10 @@
       <schema-pattern>b_music.*</schema-pattern>
       <default-schemas>b_music.*</default-schemas>
     </data-source>
+    <data-source name="MySQL - test@jycom.asuscomm.com" uuid="7483d51f-632a-4089-9d67-626dde57421c">
+      <secret-storage>memory</secret-storage>
+      <first-sync>true</first-sync>
+      <user-name>root</user-name>
+    </data-source>
   </component>
 </project>

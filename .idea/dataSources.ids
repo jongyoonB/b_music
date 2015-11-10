@@ -73,4 +73,7 @@
       <column name="url" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
     </table>
   </data-source>
+  <data-source name="MySQL - test@jycom.asuscomm.com" uuid="7483d51f-632a-4089-9d67-626dde57421c">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
 </component>
