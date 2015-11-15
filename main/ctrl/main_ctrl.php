@@ -14,6 +14,9 @@ include_once ('../model/sign_up.php');
 include_once ('../model/search.php');
 include_once ('../model/song_list.php');
 
+
+$login['id'] = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
+$login['status'] = isset($_SESSION['status']) ? $_SESSION['status'] : null;
 /*include ("../model/template.php");
 $Template = new Template();
 
@@ -28,11 +31,11 @@ $Template -> load('../model/song_list.php');*/
 //echo $REQUEST['func']."<br>";
 
 
-switch ($menu){
-    case 1:{
-        if($REQUEST['func'] == 100){
+switch ($menu) {
+    case 1: {
+        if ($REQUEST['func'] == 100) {
             $login['id'] = isset($_POST['id']) ? $_POST['id'] : null;
-            if($login['id']) {
+            if ($login['id']) {
                 $login['password'] = isset($_POST['password']) ? $_POST['password'] : null;
                 $stmt = login($login);
                 //echo $stmt."<Br>";
@@ -43,27 +46,27 @@ switch ($menu){
                          * 1 -> dupli
                          * -1 -> logged-in
                         */
-                        $check = logged_in($login['id']);
+                        $check_login = logged_in($login['id']);
 
-                        switch($check){
-                            case 0:{
+                        switch ($check_login) {
+                            case 0: {
                                 $message = "Welcome " . $login['id'];
-                                $_SESSION['status'] = userStatus($login['id']);
+                                $status = userStatus($login['id']);
+
+                                $_SESSION['login_id'] = $login['id'];
+                                $_SESSION['status'] = $status['status'];
+                                //print_r($_SESSION['status']);
                                 $func = null;
                                 break;
                             }
 
-                            case 1:{
-                                $message = "Plz Log-out from other browser";
-                                $func = 100;
-                                break;
-                            }
-
-                            case -1:{
-                                $message = "U Already Logged in";
+                            case -1:
+                            case 1: {
+                                $message = "Plz Log-out from other";
                                 $func = null;
                                 break;
                             }
+
                         }
 
                         //$_SESSION['message'] = $message;
@@ -89,11 +92,16 @@ switch ($menu){
             //header('location: ../view/main_view.php?func='.$func);
 
 
-        }
-
-        elseif($REQUEST['func'] == 110){
+        } elseif ($REQUEST['func'] == 101) {
+            signOut($_SESSION['login_id']);
+            $message = "안녕히 가세유";
+            $func = null;
+            echo pop_message($message);
+            //echo $func."<br>".$message."<Br>";
+            echo load($func);
+        } elseif ($REQUEST['func'] == 110) {
             $memInfo['id'] = isset($_POST['id']) ? $_POST['id'] : null;
-            if($memInfo['id']) {
+            if ($memInfo['id']) {
                 $memInfo['password'] = isset($_POST['password']) ? $_POST['password'] : null;
                 $memInfo['nick'] = isset($_POST['nick']) ? $_POST['nick'] : null;
                 $memInfo['mail'] = isset($_POST['mail']) ? $_POST['mail'] : null;
@@ -123,49 +131,47 @@ switch ($menu){
         break;
     }
 
-    case 2:{
-        //echo "sub = ".$sub."<br>";
-        switch ($sub){
-            case 1:{
+    case 2: {
+
+        switch ($sub) {
+            case 1: {
                 $view = "top_100";
                 break;
             }
 
-            case 2:{
+            case 2: {
                 $view = "song_list";
                 //echo $view;
                 break;
             }
-
+            default:
         }
 
-        $key = isset($_POST['key']) ? $_POST['key'] : $REQUEST['key'];
-        /*echo $key."<br>".$view."<br>".$REQUEST['page']."<br>";
-        print_r($_SESSION['key_option']);
-        echo "<br>";*/
-        $arr = song_list($view, $REQUEST['page'],$key, $_SESSION['key_option']);
-        //print_r($arr);
-        //$_SESSION['numbPage'] = (count($arr) % per_page ==0) ? floor($numOfRows / per_page) : floor($numOfRows / per_page) +1;
+        if (isset($_POST['key_option'])) {
+            $_SESSION['key_option'] = $_GET['key_option'];
+        }
+        else {
+            $_SESSION['key_option'] = null;
+        }
+
+        $arr = song_list($view, $REQUEST['page'], $REQUEST['key'], $_SESSION['key_option']);
         $_SESSION['list'] = $arr;
-        //print_r($_SESSION['numbPage']);
-        //print_r($_SESSION['list']);
-        //echo "<br>".$REQUEST['page']."<br>".$key."<br>";
+        $_SESSION['numbOfData'] = $arr['count'];
 
-
-        //header('location: ../view/main_view.php?func='.$func);
-
-        //echo load($REQUEST['func'], $REQUEST['page'], $key);
+        echo load($REQUEST['func'], $REQUEST['page'], $REQUEST['key']);
 
         break;
+
     }
 
-    default:{
+    default: {
         echo "!!!<br>";
-        //header("location: ../view/main_view.php?func=100");
+        $func = 100;
+        echo load($func, $REQUEST['page'], $REQUEST['key']);
         break;
     }
+
 
 }
-
 
 ?>

@@ -10,7 +10,9 @@ include_once (dirname(__FILE__).'/../common/common_info.php');
 
 //리스트 및 검색
 function song_list($view, $argPage, $arrKey, $arrKeyOption){
-
+    /*echo "key = ".$arrKey."<br> key_option = ";
+    var_dump($arrKeyOption);
+    echo "<br><br>";*/
     //include ('../common/common_data.php');
     //echo $view."<br>".$argPage."<br>".$arrKeyOption."<br>";
     /*sub query
@@ -21,49 +23,63 @@ function song_list($view, $argPage, $arrKey, $arrKeyOption){
 
     //view
     $query = "select `곡 명`, `앨범`, `아티스트`, `장르`, `발매 일`, url from $view";
+    $query2 = "select count(*) from $view";
+    //var_dump($arrKeyOption);
+    //echo "<Br><Br>";
     //echo count($arrKeyOption)."<br><br>";
     if($arrKey) {
+        $query .= " where ";
+        $query2 .= " where ";
         if ($arrKeyOption) {
-            $query .= " where ";
+
             for ($index_i = 0; $index_i < count($arrKeyOption); $index_i++) {
                 switch ($arrKeyOption[$index_i]) {
 
                     case "title": {
                         $query .= "`곡 명` like '%" . $arrKey . "%'";
+                        $query2 .= "`곡 명` like '%" . $arrKey . "%'";
                         break;
                     }
 
                     case "album": {
                         $query .= "`앨범` like '%" . $arrKey . "%'";
+                        $query2 .= "`앨범` like '%" . $arrKey . "%'";
                         break;
                     }
 
                     case "artist": {
                         $query .= "`아티스트` like '%" . $arrKey . "%'";
-                        break;
-                    }
-
-                    case "artist": {
-                        $query .= "`아티스트` like '%" . $arrKey . "%'";
+                        $query2 .= "`아티스트` like '%" . $arrKey . "%'";
                         break;
                     }
 
                     default: {
-                        $query .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
                         break;
                     }
                 }
                 if (($index_i + 1) != count($arrKeyOption)) {
                     $query .= " or ";
+                    $query2 .= " or ";
                 }
             }
         }
+        else{
+            $query .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+            $query2 .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+        }
     }
+    //echo $query2."<br>";
 
-    $_SESSION['numbOfRows'] = NumbOfRows(mysqli_query(DB_CONN(), $query));
     $query .= " limit ".(($argPage-1) * perPage).", ".perPage;
-    echo $query."<Br>";
-    return returnValue($query);
+    /*echo $query."<Br>";
+    echo $query2."<Br>";*/
+
+    $arrTemp = returnValue($query);
+    $count = mysqli_fetch_array(mysqli_query(DB_CONN(), $query2));
+    //print_r($count);
+    $arrTemp['count'] = $count[0];
+    //print_r($arrTemp);
+    return $arrTemp;
 }
 
 

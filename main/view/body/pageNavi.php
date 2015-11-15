@@ -13,18 +13,19 @@ include_once ('../common/common_info.php');
 $end_p = ($start_p+9 < $numbOfPage) ? $start_p + 9 : $numbOfPage;*/
 //$numbOfrows = $_SESSION['numbPage'];
 
-$numbOfrows = $_SESSION['numbOfRows'];
+
+$numbOfData = $_SESSION['numbOfData'];
 $block = ceil($REQUEST['page'] / perBlock);
 $b_startP = (($block -1) * perBlock) + 1;
 $b_endP = $b_startP + perBlock -1;
-$totalP = ceil($numbOfrows / perPage);
+$totalP = ceil($numbOfData / perPage);
 
 if($b_endP > $totalP){
     $b_endP = $totalP;
 }
 
 
-//echo $numbOfPage."<br>".$start_p."<br>".$end_p."<Br>";
+//echo "<br>".$b_startP."<br>".$b_endP."<Br>".$totalP."<br>";
 $url = "../ctrl/main_ctrl.php?func=$REQUEST[func]&Key=$REQUEST[key]&page=";
 //$url = "../ctrl/main_ctrl.php?func=$REQUEST[func]&key=$REQUEST[key]&page=";
 

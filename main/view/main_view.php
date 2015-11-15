@@ -7,6 +7,7 @@
  */
 session_start();
 //include (dirname(__FILE__).'/../css/song_list.css');
+include ('./menu/header.php')
 
 ?>
 
@@ -20,7 +21,7 @@ session_start();
 <div id="wrapper">
     <div id="headerwrap">
         <div id="header">
-            <p><?php include ('./menu/header.php')?></p>
+            <?php include ('./menu/login.php')?>
         </div>
     </div>
     <div id="navigationwrap">
