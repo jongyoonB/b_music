@@ -6,10 +6,11 @@
  * Time: 오후 2:29
  */
 include_once (dirname(__FILE__).'/../model/common_func.php');
-include_once (dirname(__FILE__).'/../common/common_info.php');
+include_once (dirname(__FILE__).'/../model/music_player.php');
 
 //리스트 및 검색
-function song_list($view, $argPage, $arrKey, $arrKeyOption){
+function song_list($view, $argPage, $argGenre, $arrKey, $arrKeyOption, $perPage){
+
     /*echo "key = ".$arrKey."<br> key_option = ";
     var_dump($arrKeyOption);
     echo "<br><br>";*/
@@ -22,7 +23,7 @@ function song_list($view, $argPage, $arrKey, $arrKeyOption){
     $query = "select title_info.title '곡 명', album_info.title '앨범', artist.name '아티스트' ,title_info.genre '장르', album_info.release_date '발매 일' from title_info INNER JOIN album_info on title_info.album_code = album_info.code INNER join artist on album_info.artist_code = artist.code;";*/
 
     //view
-    $query = "select `곡 명`, `앨범`, `아티스트`, `장르`, `발매 일`, url from $view";
+    $query = "select * from $view";
     $query2 = "select count(*) from $view";
     //var_dump($arrKeyOption);
     //echo "<Br><Br>";
@@ -62,23 +63,40 @@ function song_list($view, $argPage, $arrKey, $arrKeyOption){
                     $query2 .= " or ";
                 }
             }
+            if($argGenre){
+                $query .= " and `장르` like '%".$argGenre."%'";
+            }
         }
         else{
             $query .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
             $query2 .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+
+            if($argGenre){
+                $query .= "and `장르` like '%".$argGenre."%'";
+                $query2 .= "and `장르` like '%".$argGenre."%'";
+            }
         }
+    }
+    else{
+        if($argGenre){
+            $query .= " where `장르` like '".$argGenre."'";
+            $query2 .= " where `장르` like '".$argGenre."'";
+        }
+
     }
     //echo $query2."<br>";
 
-    $query .= " limit ".(($argPage-1) * perPage).", ".perPage;
-    /*echo $query."<Br>";
-    echo $query2."<Br>";*/
+    $query .= " limit ".(($argPage-1) * $perPage).", ".$perPage;
+
 
     $arrTemp = returnValue($query);
     $count = mysqli_fetch_array(mysqli_query(DB_CONN(), $query2));
-    //print_r($count);
     $arrTemp['count'] = $count[0];
-    //print_r($arrTemp);
+
+    /*echo $query."<Br>";
+    echo $query2."<Br>";
+    print_r($arrTemp);*/
+
     return $arrTemp;
 }
 

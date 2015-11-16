@@ -34,12 +34,12 @@ function login($login)
 
 function logged_in($argID){
     $query = "select ip_add from member where id='".$argID."'";
-    echo $query;
+    //echo $query;
     $store_ip = mysqli_fetch_array(mysqli_query(DB_CONN(), $query));
     $current_ip = $_SERVER['REMOTE_ADDR'];
 
-    echo "<script>alert('$store_ip[ip_add]')</script>" ;
-    echo "<script>alert('$current_ip')</script>" ;
+    /*echo "<script>alert('$store_ip[ip_add]')</script>" ;
+    echo "<script>alert('$current_ip')</script>" ;*/
     if(!$store_ip['ip_add']){
         $query = "update member set ip_add = '".$current_ip."' where id = '".$argID."'";
         mysqli_query(DB_CONN(), $query);

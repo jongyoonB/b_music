@@ -6,24 +6,24 @@
  * Time: 오후 9:47
  */
 
-include ('../common/common_data.php');
-
-if(!$REQUEST['func']){
+if(!$_REQUEST['func']){
     include (dirname(__FILE__).'/./mainPage.php');
 }
 
 else{
+    $menu = intval($_REQUEST['func'] / 100);
 
     switch($menu){
 
         case 2:
+        case 3:
         {
             $path = (dirname(__FILE__)."/SongList.php");
             break;
         }
 
         default:{
-            $path = (dirname(__FILE__)."/../".$menu."xx/Page".$REQUEST['func'].".php");
+            $path = (dirname(__FILE__)."/../".$menu."xx/Page".$_REQUEST['func'].".php");
         }
     }
 

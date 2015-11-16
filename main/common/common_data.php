@@ -6,13 +6,13 @@
  * Time: ���� 2:25
  */
 //$_SESSION['message'] = isset($_SESSION['message']) ? $_SESSION['message'] : null;
-
+/*
 $REQUEST['func'] = isset($_REQUEST['func']) ? $_REQUEST['func'] : null;
 $menu = isset($REQUEST['func']) ? intval($REQUEST['func'] / 100) : null;
 $sub = intval(($REQUEST['func']/100 - $menu)*10);
 
 $REQUEST['page'] = isset($_REQUEST['page']) ? $_REQUEST['page'] : null;
-$REQUEST['key'] = isset($_REQUEST['key']) ? $_REQUEST['key'] : null;
+$REQUEST['key'] = isset($_REQUEST['key']) ? $_REQUEST['key'] : null;*/
 
 //echo "<script>alert('$menu')</script>";
 //echo "<script>alert('$sub')</script>";
