@@ -6,9 +6,12 @@
  * Time: 오전 10:54
  */
 
+<<<<<<< HEAD
 include_once ('../model/sign_in.php');
 include_once ('../model/sign_up.php');
 
+=======
+>>>>>>> origin/JY_B
 
 function memberCTL($func){
     if ($func == 100) {

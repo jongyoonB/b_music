@@ -11,6 +11,14 @@ include_once (dirname(__FILE__).'/../model/music_player.php');
 //리스트 및 검색
 function song_list($view, $argPage, $argGenre, $arrKey, $arrKeyOption, $perPage){
 
+<<<<<<< HEAD
+=======
+    /*echo "key = ".$arrKey."<br> key_option = ";
+    var_dump($arrKeyOption);
+    echo "<br><br>";*/
+    //include ('../common/common_data.php');
+    //echo $view."<br>".$argPage."<br>".$arrKeyOption."<br>";
+>>>>>>> origin/JY_B
     /*sub query
     $query = "select title_info.code, title_info.title '곡 명', album_info.title '앨범', artist.name '아티스트', title_info.genre '장르', album_info.release_date '발매 일', title_info.hits 'hits', title_info.url 'url' from title_info, album_info,artist WHERE title_info.album_code = album_info.code and album_info.artist_code = artist.code;";*/
 
@@ -20,9 +28,15 @@ function song_list($view, $argPage, $argGenre, $arrKey, $arrKeyOption, $perPage)
     //view
     $query = "select * from $view";
     $query2 = "select count(*) from $view";
+<<<<<<< HEAD
     /*var_dump($arrKeyOption);
     echo "<Br><Br>";
     echo count($arrKeyOption)."<br><br>";*/
+=======
+    //var_dump($arrKeyOption);
+    //echo "<Br><Br>";
+    //echo count($arrKeyOption)."<br><br>";
+>>>>>>> origin/JY_B
     if($arrKey) {
         $query .= " where ";
         $query2 .= " where ";
@@ -61,10 +75,50 @@ function song_list($view, $argPage, $argGenre, $arrKey, $arrKeyOption, $perPage)
             if($argGenre){
                 $query .= " and `장르` like '%".$argGenre."%'";
             }
+<<<<<<< HEAD
         }
         else{
             $query .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
             $query2 .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+=======
+        }
+        else{
+            $query .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+            $query2 .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+
+            if($argGenre){
+                $query .= "and `장르` like '%".$argGenre."%'";
+                $query2 .= "and `장르` like '%".$argGenre."%'";
+            }
+        }
+    }
+    else{
+        if($argGenre){
+            $query .= " where `장르` like '".$argGenre."'";
+            $query2 .= " where `장르` like '".$argGenre."'";
+        }
+
+    }
+    //echo $query2."<br>";
+
+    $query .= " limit ".(($argPage-1) * $perPage).", ".$perPage;
+
+
+    $arrTemp = returnValue($query);
+    $count = mysqli_fetch_array(mysqli_query(DB_CONN(), $query2));
+    $arrTemp['count'] = $count[0];
+
+    /*echo $query."<Br>";
+    echo $query2."<Br>";
+    print_r($arrTemp);*/
+
+    return $arrTemp;
+}
+
+
+//장르 별
+/*function categorize_genre($argPage, $argGenre){
+>>>>>>> origin/JY_B
 
             if($argGenre){
                 $query .= "and `장르` like '%".$argGenre."%'";

@@ -7,6 +7,7 @@
  */
 
 
+<<<<<<< HEAD
 function songInfo($argcode){
     $sql = "select `곡 명`, `앨범`, `아티스트`, url from song_list where code = ".$argcode;
     $result = mysqli_query(DB_CONN(), $sql);
@@ -23,4 +24,9 @@ function build_playlist($argInfo){
 
 function popPlayer(){
     echo "<script>window.open('../view/body/common/music_player.php')</script>";
+=======
+
+function build_playlist($argCode){
+
+>>>>>>> origin/JY_B
 }
