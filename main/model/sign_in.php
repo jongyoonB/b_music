@@ -33,10 +33,14 @@ function login($login)
 }
 
 function logged_in($argID){
-    $query = "select ip_add from member where id=$argID";
-    $store_ip = returnValue(mysqli_query(DB_CONN(), $query));
+    $query = "select ip_add from member where id='".$argID."'";
+    //echo $query;
+    $store_ip = mysqli_fetch_array(mysqli_query(DB_CONN(), $query));
     $current_ip = $_SERVER['REMOTE_ADDR'];
-    if(!$store_ip){
+
+    /*echo "<script>alert('$store_ip[ip_add]')</script>" ;
+    echo "<script>alert('$current_ip')</script>" ;*/
+    if(!$store_ip['ip_add']){
         $query = "update member set ip_add = '".$current_ip."' where id = '".$argID."'";
         mysqli_query(DB_CONN(), $query);
         return 0;
@@ -50,4 +54,15 @@ function logged_in($argID){
         }
     }
 
+}
+
+function userStatus($argID){
+    $query = "select status from member where id='".$argID."'";
+    return mysqli_fetch_array(mysqli_query(DB_CONN(), $query));
+}
+
+function signOut($argID){
+    $query = "update member set ip_add = null where id = '".$argID."'";
+    mysqli_query(DB_CONN(), $query);
+    session_destroy();
 }

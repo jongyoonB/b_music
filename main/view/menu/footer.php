@@ -7,4 +7,4 @@
  */
 
 
-echo "footer";
+echo "footer section";

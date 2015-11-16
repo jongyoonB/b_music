@@ -27,13 +27,9 @@ function DB_CONN(){
     return $conn;
 }
 
-function NumbOfRows($argResult){
-    return mysqli_num_rows($argResult);
-}
-
 function returnValue($argQuery){
     $result = mysqli_query(DB_CONN(), $argQuery);
-    print_r($argQuery);
+    //print_r($argQuery);
     while($row = mysqli_fetch_array($result)){
         $arrTemp[] = $row;
     }
@@ -45,7 +41,14 @@ function pop_message($argMessage){
     return "<script>alert('$argMessage')</script>";
 }
 
-function load($argFunc, $argPage, $argKey){
+function redirect_to_view($argFunc, $argPage, $argKey){
     return "<script>location.replace('../view/main_view.php?func=$argFunc&page=$argPage&key=$argKey')</script>";
+}
 
+function redirect_to_ctrl($argFunc, $argPage, $argKey){
+    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&page=$argPage&key=$argKey')</script>";
+}
+
+function redirect_to_ctrlWithSongCode($argFunc, $argCode){
+    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&code=$argCode')</script>";
 }
