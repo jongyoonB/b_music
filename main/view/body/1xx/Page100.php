@@ -18,7 +18,6 @@
 </head>
 
 <body>
-<h2 align="center">로...그...인</h2>
     <form action="../ctrl/main_ctrl.php?func=100" method="post">
         <img src = "http://i.imgur.com/7pDE27y.jpg"><br><br>
         id&nbsp:&nbsp<input type="text" name = 'id' required>

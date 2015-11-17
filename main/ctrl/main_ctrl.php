@@ -5,13 +5,23 @@
  * Date: 2015-11-04
  * Time: ���� 2:22
  */
+session_start();
+include_once ('../model/common_func.php');
+
+$login['id'] = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
+$login['status'] = isset($_SESSION['status']) ? $_SESSION['status'] : null;
+
+$login['id'] = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
+$login['status'] = isset($_SESSION['status']) ? $_SESSION['status'] : null;
 
 include ('../common/common_data.php');
 include_once ('../model/sign_in.php');
 include_once ('../model/sign_up.php');
 include_once ('../model/search.php');
-include_once ('../model/song_list.php');
 
+
+$login['id'] = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
+$login['status'] = isset($_SESSION['status']) ? $_SESSION['status'] : null;
 /*include ("../model/template.php");
 $Template = new Template();
 
@@ -22,108 +32,38 @@ $Template -> load('../model/search.php');
 $Template -> load('../model/song_list.php');*/
 
 
-
 //echo $REQUEST['func']."<br>";
+$menu = isset($_REQUEST['func']) ? intval($_REQUEST['func'] / 100) : null;
 
 
-switch ($menu){
-    case 1:{
-        if($REQUEST['func'] == 100){
-            $login['id'] = isset($_POST['id']) ? $_POST['id'] : null;
-            if($login['id']) {
-                $login['password'] = isset($_POST['password']) ? $_POST['password'] : null;
-                $stmt = login($login);
-                //echo $stmt."<Br>";
-                switch ($stmt) {
-                    case 0: {
-                        $message = "Welcome " . $login['id'];
-                        //$_SESSION['message'] = $message;
-                        $func = null;
-                        break;
-                    }
-
-                    case 1: {
-                        $message = "Plz Check Your Password";
-                        $func = 100;
-                        break;
-                    }
-
-                    case -1: {
-                        $message = "Plz Check Your ID";
-                        $func = 100;
-                        break;
-                    }
-                }
-                echo pop_message($message);
-            }
-            echo load($func, $REQUEST['page']);
-
-
-        }
-
-        elseif($REQUEST['func'] == 110){
-            $memInfo['id'] = isset($_POST['id']) ? $_POST['id'] : null;
-            if($memInfo['id']) {
-                $memInfo['password'] = isset($_POST['password']) ? $_POST['password'] : null;
-                $memInfo['nick'] = isset($_POST['nick']) ? $_POST['nick'] : null;
-                $memInfo['mail'] = isset($_POST['mail']) ? $_POST['mail'] : null;
-                $stmt = add_user($memInfo);
-                echo $stmt;
-                switch ($stmt) {
-                    case true: {
-                        $message = "SignUp Complete";
-                        $func = 100;
-                        break;
-                    }
-
-                    case false: {
-                        $message = "SignUp Failed";
-                        $func = 110;
-                        break;
-                    }
-                }
-                echo pop_message($message);
-            }
-            echo load($func, $REQUEST['page'], $key);
-
-        }
-
-
+switch ($menu) {
+    case 1: {
+        include_once './memberCTL.php';
+        memberCTL($_REQUEST['func']);
         break;
     }
 
-    case 2:{
-        $key = isset($_POST['key']) ? $_POST['key'] : null;
-        $key_option = isset($_POST['key_option']) ? $_POST['key_option'] : "total";
-
-        $arr = song_list($view, $REQUEST['page'],$key, $key_option);
-        $_SESSION['list'] = $arr;
-        echo load($func, $REQUEST['page'], $key);
-        break;
-    }
-
+    case 2:
     case 3:{
-        if($REQUEST['func']==300){
-            $key = isset($_POST['key']) ? $_POST['key'] : null;
-            $key_option = isset($_POST['key_option']) ? $_POST['key_option'] : "total";
+        include_once './listCTL.php';
 
-            $arr = song_list($view, $REQUEST['page'],$key, $key_option);
-            $_SESSION['list'] = $arr;
+        listCTL($_REQUEST['func'], $login['status'], isset($_REQUEST['code']) ? $_REQUEST['code'] : null);
 
-            print_r($arr);
-            //echo load($func, $REQUEST['page'], $key);
-        }
+
+        listCTL($_REQUEST['func'], isset($_REQUEST['code']) ? $_REQUEST['code'] : null);
+        listCTL($_REQUEST['func']);
 
         break;
     }
 
-    default:{
-        echo "!!!<br>";
-        //header("location: ../view/main_view.php?func=100");
+
+    default: {
+
+        echo redirect_to_view($_REQUEST['func'], $_REQUEST['page'], $_REQUEST['key']);
         break;
     }
+
 
 }
-
 
 ?>
