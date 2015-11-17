@@ -8,11 +8,7 @@
 include_once ('../model/song_list.php');
 
 
-<<<<<<< HEAD
-function listCTL($func, $argCode){
-=======
-function listCTL($func){
->>>>>>> origin/JY_B
+function listCTL($func, $argCode, $argStatus){
 
 
     $menu = intval($func / 100);
@@ -65,14 +61,12 @@ function listCTL($func){
 
     $_SESSION['list'] = $arr;
     $_SESSION['numbOfData'] = $arr['count'];
-    //print_r($_SESSION['list']);
-<<<<<<< HEAD
     if($argCode){
-        $info = songInfo($argCode);
+        $info = songInfo($argCode, $argStatus);
         $_SESSION['play_info'] = $info;
         popPlayer();
     }
-=======
->>>>>>> origin/JY_B
-    echo redirect_to_view($_REQUEST['func'], $_REQUEST['page'], $_REQUEST['key']);
+    print_r($_SESSION['play_info']);
+
+    //echo redirect_to_view($_REQUEST['func'], $_REQUEST['page'], $_REQUEST['key']);
 }

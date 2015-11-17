@@ -6,12 +6,9 @@
  * Time: 오전 10:54
  */
 
-<<<<<<< HEAD
 include_once ('../model/sign_in.php');
 include_once ('../model/sign_up.php');
 
-=======
->>>>>>> origin/JY_B
 
 function memberCTL($func){
     if ($func == 100) {
@@ -74,10 +71,12 @@ function memberCTL($func){
     } elseif ($func == 101) {
         signOut($_SESSION['login_id']);
         $message = "안녕히 가세유";
+        session_destroy();
         $func = null;
         echo pop_message($message);
         //echo $func."<br>".$message."<Br>";
-        echo redirect_to_view($func, $_REQUEST['page'], $_REQUEST['key']);    } elseif ($func == 110) {
+        echo redirect_to_view($func, $_REQUEST['page'], $_REQUEST['key']);    }
+    elseif ($func == 110) {
         $memInfo['id'] = isset($_POST['id']) ? $_POST['id'] : null;
         if ($memInfo['id']) {
             $memInfo['password'] = isset($_POST['password']) ? $_POST['password'] : null;
