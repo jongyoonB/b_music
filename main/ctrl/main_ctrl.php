@@ -8,6 +8,11 @@
 session_start();
 include_once ('../model/common_func.php');
 
+if($_REQUEST['func'] == 1){
+    session_destroy();
+    redirect_to_ctrl(null,1,null);
+}
+
 $login['id'] = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
 $login['status'] = isset($_SESSION['status']) ? $_SESSION['status'] : null;
 

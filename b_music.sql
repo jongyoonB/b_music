@@ -35,7 +35,7 @@ CREATE TABLE `album_info` (
   `image_url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`code`),
   KEY `artist_code` (`artist_code`),
-  CONSTRAINT `album_info_ibfk_1` FOREIGN KEY (`artist_code`) REFERENCES `artist` (`code`) ON UPDATE CASCADE
+  CONSTRAINT `album_info_ibfk_1` FOREIGN KEY (`artist_code`) REFERENCES `artist` (artist_code) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -85,7 +85,7 @@ CREATE TABLE `lyric` (
   `code` int(10) unsigned NOT NULL DEFAULT '0',
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`code`),
-  CONSTRAINT `lyric_ibfk_1` FOREIGN KEY (`code`) REFERENCES `title_info` (`code`) ON UPDATE CASCADE
+  CONSTRAINT `lyric_ibfk_1` FOREIGN KEY (`code`) REFERENCES `title_info` (title_code) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -165,7 +165,7 @@ CREATE TABLE `title_info` (
   `url` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`code`),
   KEY `album_code` (`album_code`),
-  CONSTRAINT `title_info_ibfk_1` FOREIGN KEY (`album_code`) REFERENCES `album_info` (`code`) ON UPDATE CASCADE
+  CONSTRAINT `title_info_ibfk_1` FOREIGN KEY (`album_code`) REFERENCES `album_info` (album_code) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -213,7 +213,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`b_admin`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `song_list` AS select `title_info`.`code` AS `code`,`title_info`.`title` AS `곡 명`,`album_info`.`title` AS `앨범`,`artist`.`name` AS `아티스트`,`title_info`.`genre` AS `장르`,`album_info`.`release_date` AS `발매 일`,`title_info`.`hits` AS `hits`,`title_info`.`url` AS `url` from ((`title_info` join `album_info`) join `artist`) where ((`title_info`.`album_code` = `album_info`.`code`) and (`album_info`.`artist_code` = `artist`.`code`)) */;
+/*!50001 VIEW `song_list` AS select `title_info`.title_code AS `code`,`title_info`.title_name AS `곡 명`,`album_info`.album_title AS `앨범`,`artist`.artitst_name AS `아티스트`,`title_info`.`genre` AS `장르`,`album_info`.`release_date` AS `발매 일`,`title_info`.`hits` AS `hits`,`title_info`.`url` AS `url` from ((`title_info` join `album_info`) join `artist`) where ((`title_info`.`album_code` = `album_info`.album_code) and (`album_info`.`artist_code` = `artist`.artist_code)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -232,7 +232,7 @@ SET character_set_client = @saved_cs_client;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`b_admin`@`%` SQL SECURITY DEFINER */
-/*!50001 VIEW `top_100` AS select `title_info`.`code` AS `code`,`title_info`.`title` AS `곡 명`,`album_info`.`title` AS `앨범`,`artist`.`name` AS `아티스트`,`title_info`.`genre` AS `장르`,`album_info`.`release_date` AS `발매 일`,`title_info`.`hits` AS `hits`,`title_info`.`url` AS `url` from ((`title_info` join `album_info`) join `artist`) where ((`title_info`.`album_code` = `album_info`.`code`) and (`album_info`.`artist_code` = `artist`.`code`)) order by `title_info`.`hits` desc,`title_info`.`title` */;
+/*!50001 VIEW `top_100` AS select `title_info`.title_code AS `code`,`title_info`.title_name AS `곡 명`,`album_info`.album_title AS `앨범`,`artist`.artitst_name AS `아티스트`,`title_info`.`genre` AS `장르`,`album_info`.`release_date` AS `발매 일`,`title_info`.`hits` AS `hits`,`title_info`.`url` AS `url` from ((`title_info` join `album_info`) join `artist`) where ((`title_info`.`album_code` = `album_info`.album_code) and (`album_info`.`artist_code` = `artist`.artist_code)) order by `title_info`.`hits` desc,`title_info`.title_name */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;

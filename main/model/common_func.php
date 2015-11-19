@@ -36,17 +36,36 @@ function returnValue($argQuery){
     return $arrTemp;
 }
 
+function pageInfo($argPage, $cntRecord, $perPage, $perBlock){
+    $page['currentPage'] = $argPage;
+    $page['numbOfData'] = $cntRecord;
+    $page['totalP'] = ceil($page['numbOfData'] / $perPage);
+    $page['block'] = ceil($argPage / $perBlock);
+    $page['cntBlock'] = ceil($page['totalP'] / $perBlock);
+    $page['b_startP'] = (($page['block'] -1) * $perPage) + 1;
+    $page['b_endP'] = $page['b_startP'] + $perBlock -1;
+    $page['perPage'] = $perPage;
+    $page['perBlock'] = $perBlock;
+
+    if($page['b_endP'] > $page['totalP']){
+        $page['b_endP'] = $page['totalP'];
+    }
+
+    return $page;
+
+}
+
 function pop_message($argMessage){
     echo $argMessage;
     return "<script>alert('$argMessage')</script>";
 }
 
 function redirect_to_view($argFunc, $argPage, $argKey){
-    return "<script>location.replace('../view/main_view.php?func=$argFunc&page=$argPage&key=$argKey')</script>";
+    return "<script>location.replace('../view/main_view.php?func=$argFunc&key=$argKey')</script>";
 }
 
 function redirect_to_ctrl($argFunc, $argPage, $argKey){
-    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&page=$argPage&key=$argKey')</script>";
+    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc')</script>";
 }
 
 function redirect_to_ctrlWithSongCode($argFunc, $argCode){

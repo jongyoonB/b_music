@@ -6,60 +6,55 @@
  * Time: 오후 2:43
  */
 
-$numbOfData = $_SESSION['numbOfData'];
-$block = ceil($_REQUEST['page'] / 10);
-$b_startP = (($block -1) * 10) + 1;
-$b_endP = $b_startP + 10 -1;
-$totalP = ceil($numbOfData / 10);
 
-if($b_endP > $totalP){
-    $b_endP = $totalP;
-}
+function pageNavi($argPageInfo, $func, $argPageName, $argKey){
 
 
-//echo "<br>".$b_startP."<br>".$b_endP."<Br>".$totalP."<br>";
-$url = "../ctrl/main_ctrl.php?func=$_REQUEST[func]&Key=$_REQUEST[key]&page=";
-//$url = "../ctrl/main_ctrl.php?func=$REQUEST[func]&key=$REQUEST[key]&page=";
+    //echo "<br>".$b_startP."<br>".$b_endP."<Br>".$totalP."<br>";
+    $url = "../ctrl/main_ctrl.php?func=".$func."&key=".$argKey."&".$argPageName."=";
+    $_SESSION['url_test'] = $url;
+
+    //$url = "../ctrl/main_ctrl.php?func=$REQUEST[func]&key=$REQUEST[key]&page=";
 
 
-if($b_startP == 1){
-    echo "☜ ";
-}
-else{
-    echo "<a href = ".$url.($start_p-10).">☜ </a>";
-}
-
-if($_REQUEST['page'] == 1){
-    echo "◀ ";
-}
-
-else{
-    echo "<a href = ".$url.($_REQUEST['page']-1).">◀ </a>";
-}
-
-
-for ($index_I = $b_startP; $index_I <= $b_endP; $index_I++) {
-    if($_REQUEST['page'] == $index_I){
-        echo "&nbsp[".$index_I."]&nbsp</a>";
+    if($argPageInfo['block'] == 1){
+        echo "☜ ";
     }
-    else {
-        echo "<a href = ../ctrl/main_ctrl.php?func=$_REQUEST[func]&key=$_REQUEST[key]&page=$index_I>&nbsp" .$index_I."&nbsp</a>";
+    else{
+        echo "<a href = ".$url.($argPageInfo['b_startP']-$argPageInfo['perBlock']).">☜ </a>";
     }
-}
 
-if($_REQUEST['page']>=$totalP){
-    echo " ▶";
-}
-else{
-    echo "<a href = ".$url.($_REQUEST['page']+1)."> ▶</a>";
-}
+    if($argPageInfo['currentPage'] == 1){
+        echo "◀ ";
+    }
 
-if($b_endP+1>$totalP){
-    echo " ☞";
-}
-else{
-    echo "<a href = ".$url.($b_endP+1)."> ☞</a>";
-}
+    else{
+        echo "<a href = ".$url.($argPageInfo['currentPage']-1).">◀ </a>";
+    }
 
 
+    for ($index_I = $argPageInfo['b_startP']; $index_I <= $argPageInfo['b_endP']; $index_I++) {
+        if($argPageInfo['currentPage'] == $index_I){
+            echo "&nbsp[".$index_I."]&nbsp</a>";
+        }
+        else {
+            echo "<a href = $url$index_I>&nbsp" .$index_I."&nbsp</a>";
+        }
+    }
+
+    if($argPageInfo['currentPage']+1 >= $argPageInfo['totalP']){
+        echo " ▶";
+    }
+    else{
+        echo "<a href = ".$url.($argPageInfo['currentPage'] + 1)."> ▶</a>";
+    }
+
+    if($argPageInfo['block']>=$argPageInfo['cntBlock']){
+        echo " ☞";
+    }
+    else{
+        echo "<a href = ".$url.($argPageInfo['b_endP']+1)."> ☞</a>";
+    }
+
+}
 ?>

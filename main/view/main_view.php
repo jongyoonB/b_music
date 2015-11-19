@@ -7,7 +7,10 @@
  */
 session_start();
 //include (dirname(__FILE__).'/../css/song_list.css');
-include ('./menu/header.php')
+include ('./menu/header.php');
+$temp = "menu".$_REQUEST['func'];
+print_r($_SESSION[$temp]);
+echo "<Br>";
 
 ?>
 
