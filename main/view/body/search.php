@@ -5,17 +5,40 @@
  * Date: 2015-11-06
  * Time: 오후 7:43
  */
-function searchBar(){
+function searchBar($argPageName, $argPageInfo){
     $cheked = isset($_SESSION['key_option']) ? $_SESSION['key_option'] : null;
     if(!$_REQUEST['key']){
         $cheked = null;
     }
 
-    echo "<form action='../ctrl/main_ctrl.php?func=".$_REQUEST['func']."&page=".$_REQUEST['page']."&key=' method='post'>";
+    $index_name = array(
+        array("Title", "Album", "Artist"),
+        array("ID", "Nick")
+    );
 
-    echo "제목<input type='checkbox' name='key_option[]'"; if($cheked){if(in_array('title',$cheked)==true) echo 'checked';}echo " value='title'>&nbsp";
-    echo "앨범<input type='checkbox' name='key_option[]'"; if($cheked){if(in_array('album',$cheked)==true) echo 'checked';}echo " value='album'>&nbsp";
-    echo "가수<input type='checkbox' name='key_option[]'"; if($cheked){if(in_array('artist',$cheked)==true) echo 'checked';}echo " value='artist'>&nbsp";
+    $sub = intval($_REQUEST['func'] / 100);
+
+    switch($sub) {
+        case 2:
+        case 3:
+        case 4:{
+            $sub = 0;
+            break;
+        }
+
+        case 9:{
+            $sub = 1;
+        }
+
+        default:{
+
+        }
+    }
+    echo "<form action='../ctrl/main_ctrl.php?func=".$_REQUEST['func']."&$argPageName=".$argPageInfo['currentPage']."&key=' method='post'>";
+
+    for($index_i = 0 ; $index_i < count($index_name[$sub]) ; $index_i ++){
+    echo $index_name[$sub][$index_i]."<input type='checkbox' name='key_option[]'"; if($cheked){if(in_array($index_name[$sub][$index_i],$cheked)==true) echo 'checked';}echo " value='".$index_name[$sub][$index_i]."'>&nbsp";
+    }
     echo "<input type='text' name='key' value='".$_REQUEST['key']. "'>";
     echo "<input type='submit' value='검색'></form>";
 }

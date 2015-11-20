@@ -8,7 +8,7 @@
 
 
 function songInfo($argCode, $argStatus){
-    $sql = "select `곡 명`, `앨범`, `아티스트`, url, url_short, image_url from song_list where code = ".$argCode;
+    $sql = "select `곡 명`, `앨범`, `아티스트`, url, url_short, art_url from song_list where code = ".$argCode;
     $result = mysqli_query(DB_CONN(), $sql);
 
     if($argStatus != "admin" && $argStatus !="free"){
@@ -17,8 +17,8 @@ function songInfo($argCode, $argStatus){
     else{
         $url = "url";
     }
-    var_dump($argStatus);
-    echo "<br>".$url."<br>";
+    //var_dump($argStatus);
+    //echo "<br>".$url."<br>";
     $cnt = 0;
     while($row = mysqli_fetch_array($result))
     {

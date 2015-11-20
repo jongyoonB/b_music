@@ -7,12 +7,17 @@
  */
 
 if(!$_REQUEST['func']){
-    include (dirname(__FILE__).'/./mainPage.php');
+    if($status != "admin"){
+        include (dirname(__FILE__).'/./mainPage.php');
+    }
+    else{
+        include (dirname(__FILE__).'/./mainPage_Admin.php');
+    }
 }
 
 else{
     $menu = intval($_REQUEST['func'] / 100);
-
+//echo $menu."<br>";
     switch($menu){
 
         case 2:
@@ -27,7 +32,13 @@ else{
         }
     }
 
-    include $path;
+    if(file_exists($path)) {
+        include $path;
+    }
+    else{
+        echo "미 구현";
+    }
+
 }
 
 ?>

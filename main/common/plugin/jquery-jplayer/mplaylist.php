@@ -14,7 +14,7 @@ $path = "https://jycom.asuscomm.com/AICLOUD350640489/".$info[0]['url'];*/
             title:'<?php echo $info[0]['곡 명']?>',
             artist:'<?php echo $info[0]['아티스트']?>',
             rating:4,
-            cover:'<?php echo $info[0]['image_url']?>'
+            cover:'<?php echo $info[0]['art_url']?>'
     }
     ];
 

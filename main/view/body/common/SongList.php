@@ -34,11 +34,15 @@
                     echo "<span>".$list[$index_i]['장르']."</span>&nbsp&nbsp";
                     echo "<span>".$list[$index_i]['발매 일']."</span>&nbsp&nbsp";
                     echo "<span>????</span>";
+                    if($_SESSION['status'] == "admin"){
+                        echo "<span><a href = ".$url.">"."수정</a></span>&nbsp&nbsp";
+                        echo "<span><a href = ".$url.">"."삭제</a></span>&nbsp&nbsp";
+                    }
                     echo "<br>";
                 }
 
             include(dirname(__FILE__) . '/../search.php');
-            //searchBar();
+            searchBar($pageName, $pageInfo);
             //include(dirname(__FILE__) . '/../searchBar.php');
             include(dirname(__FILE__) . '/../pageNavi.php');
             pageNavi($pageInfo, $_REQUEST['func'],$pageName, $_REQUEST['key']);

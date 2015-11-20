@@ -16,7 +16,7 @@ else{
 }
 define("HOST", "jycom.asuscomm.com");
 define("USER", $user);
-define("PASSWORD", "$password");
+define("PASSWORD", $password);
 define("DB", "b_music");
 define("PORT", 3306);
 
@@ -37,12 +37,13 @@ function returnValue($argQuery){
 }
 
 function pageInfo($argPage, $cntRecord, $perPage, $perBlock){
-    $page['currentPage'] = $argPage;
     $page['numbOfData'] = $cntRecord;
     $page['totalP'] = ceil($page['numbOfData'] / $perPage);
+    $page['currentPage'] = ($argPage <= $page['totalP']) ? $argPage : $argPage-1;
+    //$page['currentPage'] = $argPage;
     $page['block'] = ceil($argPage / $perBlock);
     $page['cntBlock'] = ceil($page['totalP'] / $perBlock);
-    $page['b_startP'] = (($page['block'] -1) * $perPage) + 1;
+    $page['b_startP'] = (($page['block'] -1) * $perBlock) + 1;
     $page['b_endP'] = $page['b_startP'] + $perBlock -1;
     $page['perPage'] = $perPage;
     $page['perBlock'] = $perBlock;
@@ -59,13 +60,14 @@ function pop_message($argMessage){
     echo $argMessage;
     return "<script>alert('$argMessage')</script>";
 }
-
-function redirect_to_view($argFunc, $argPage, $argKey){
+function redirect_to_view($argFunc, $argKey){
+//function redirect_to_view($argFunc, $argPage, $argKey){
     return "<script>location.replace('../view/main_view.php?func=$argFunc&key=$argKey')</script>";
 }
 
-function redirect_to_ctrl($argFunc, $argPage, $argKey){
-    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc')</script>";
+function redirect_to_ctrl($argFunc, $argKey){
+//function redirect_to_ctrl($argFunc, $argPage, $argKey){
+    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&key=$argKey')</script>";
 }
 
 function redirect_to_ctrlWithSongCode($argFunc, $argCode){

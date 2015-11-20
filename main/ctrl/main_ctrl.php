@@ -10,8 +10,11 @@ include_once ('../model/common_func.php');
 
 if($_REQUEST['func'] == 1){
     session_destroy();
-    redirect_to_ctrl(null,1,null);
+    redirect_to_ctrl(null, null);
 }
+
+/*$login['id'] = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
+$login['status'] = isset($_SESSION['status']) ? $_SESSION['status'] : null;*/
 
 $login['id'] = isset($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
 $login['status'] = isset($_SESSION['status']) ? $_SESSION['status'] : null;
@@ -30,12 +33,17 @@ switch ($menu) {
     case 2:
     case 3:{
         include_once './listCTL.php';
-
-        listCTL($_REQUEST['func'], isset($_REQUEST['code']) ? $_REQUEST['code'] : null, $login['status']);
+        listCTL($_REQUEST['func']);
         break;
     }
 
 
+    case 9:
+    {
+        include_once './adminCTL.php';
+        adminCTL($_REQUEST['func']);
+        break;
+    }
     default: {
         echo redirect_to_view($_REQUEST['func'], $_REQUEST['page'], $_REQUEST['key']);
         break;

@@ -12,7 +12,7 @@ function pageNavi($argPageInfo, $func, $argPageName, $argKey){
 
     //echo "<br>".$b_startP."<br>".$b_endP."<Br>".$totalP."<br>";
     $url = "../ctrl/main_ctrl.php?func=".$func."&key=".$argKey."&".$argPageName."=";
-    $_SESSION['url_test'] = $url;
+    //$_SESSION['url_test'] = $url;
 
     //$url = "../ctrl/main_ctrl.php?func=$REQUEST[func]&key=$REQUEST[key]&page=";
 
@@ -42,13 +42,12 @@ function pageNavi($argPageInfo, $func, $argPageName, $argKey){
         }
     }
 
-    if($argPageInfo['currentPage']+1 >= $argPageInfo['totalP']){
+    if($argPageInfo['currentPage']+1 > $argPageInfo['totalP']){
         echo " ▶";
     }
-    else{
-        echo "<a href = ".$url.($argPageInfo['currentPage'] + 1)."> ▶</a>";
+    else {
+        echo "<a href = " . $url . ($argPageInfo['currentPage'] + 1) . "> ▶</a>";
     }
-
     if($argPageInfo['block']>=$argPageInfo['cntBlock']){
         echo " ☞";
     }
@@ -56,5 +55,5 @@ function pageNavi($argPageInfo, $func, $argPageName, $argKey){
         echo "<a href = ".$url.($argPageInfo['b_endP']+1)."> ☞</a>";
     }
 
-}
+    }
 ?>

@@ -89,9 +89,9 @@ function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $p
     $arrTemp = returnValue($query);
     $count = mysqli_fetch_array(mysqli_query(DB_CONN(), $query2));
     $arrTemp['count'] = $count[0];
-    echo $query."<Br>";
+    /*echo $query."<Br>";
     echo $query2."<Br>";
-    print_r($arrTemp);
+    print_r($arrTemp);*/
 
     return $arrTemp;
 }

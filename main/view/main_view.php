@@ -6,11 +6,14 @@
  * Time: ���� 2:22
  */
 session_start();
-//include (dirname(__FILE__).'/../css/song_list.css');
 include ('./menu/header.php');
-$temp = "menu".$_REQUEST['func'];
-print_r($_SESSION[$temp]);
-echo "<Br>";
+//print_r($_SESSION);
+//var_dump($_SESSION);
+//include (dirname(__FILE__).'/../css/song_list.css');
+
+/*$temp = "menu".$_REQUEST['func'];
+var_dump($_SESSION[$temp]);*/
+//echo "<Br>";
 
 ?>
 
@@ -28,9 +31,16 @@ echo "<Br>";
         </div>
     </div>
     <div id="navigationwrap">
-        <div id="navigation">
-            <p><?php include ('./menu/main_menu.php')?></p>
-        </div>
+        <div id="navigation"><p>
+            <?php
+                if($status == "admin"){
+                    include ('./menu/admin_menu.php');
+                }
+                else{
+                    include ('./menu/main_menu.php');
+                }
+            ?>
+            </p></div>
     </div>
     <div id="contentliquid"><div id="contentwrap">
             <div id="content">
@@ -42,7 +52,14 @@ echo "<Br>";
     <div id="leftcolumnwrap">
         <div id="leftcolumn">
             <p>
-                <?php include ('./menu/left_menu.php')?>
+                <?php
+                    if($status != "admin"){
+                        include ('./menu/left_menu.php');
+                    }
+                    else{
+                        include ('./menu/left_menu_admin.php');
+                    }//ckedit
+                 ?>
             </p>
         </div>
     </div>

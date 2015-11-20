@@ -31,7 +31,7 @@ $func = $_REQUEST['func'];
 echo "<div>";
 for ($cnt = 0 ; $cnt < count($menu_title) ; $cnt++) {
     $func = ($cnt+2)*100;
-    echo "<span><a href = '../ctrl/main_ctrl.php?func=$func&page=1&key='>$menu_title[$cnt]</a></span>&nbsp&nbsp&nbsp";
+    echo "<span><a href = '../ctrl/main_ctrl.php?func=$func&key='>$menu_title[$cnt]</a></span>&nbsp&nbsp&nbsp";
 }
 echo "</div>";
 ?>

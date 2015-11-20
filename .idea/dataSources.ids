@@ -17,6 +17,12 @@
       <foreign-key name="album_info_ibfk_1" columns="artist_code" ref-table="artist" ref-schema="" ref-catalog="b_music" ref-columns="artist_code" update-rule="0" delete-rule="3" deferrability="2"/>
       <exported-key name="title_info_ibfk_1" table="title_info" schema="" catalog="b_music" columns="album_code"/>
     </table>
+    <table name="album_list" schema="" catalog="b_music" type="VIEW">
+      <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="앨범 명" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="아티스트" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="art_url" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
+    </table>
     <table name="artist" schema="" catalog="b_music" type="TABLE">
       <column name="artist_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="artitst_name" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
