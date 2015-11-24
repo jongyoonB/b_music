@@ -7,7 +7,7 @@
  */
 
 
-$menu_title = array("회원 관리", "앨범 관리", "뮤비 관리");
+$menu_title = array("회원 관리", "앨범 관리", "곡 관리", "뮤비 관리");
 $func = $_REQUEST['func'];
 
 echo "<div>";

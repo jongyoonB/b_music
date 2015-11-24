@@ -18,7 +18,7 @@
         <input type="submit" value="SignIn">
     </form><br><br>
     <a href = "../view/main_view.php?func=110">회원 가입(110)</a>&nbsp&nbsp
-    <a href = "../ctrl/main_ctrl.php?func=1">세션 초기화(1)</a>&nbsp&nbsp
+    <!--<a href = "../ctrl/main_ctrl.php?func=1">세션 초기화(1)</a>&nbsp&nbsp-->
 </body>
 </html>
 <?php }else{

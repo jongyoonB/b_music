@@ -8,7 +8,7 @@
 
 
 function songInfo($argCode, $argStatus){
-    $sql = "select `곡 명`, `앨범`, `아티스트`, url, url_short, art_url from song_list where code = ".$argCode;
+    $sql = "select `곡 명`, `앨범`, `아티스트`, url, url_short, art_url from song_list where title_code = ".$argCode;
     $result = mysqli_query(DB_CONN(), $sql);
 
     if($argStatus != "admin" && $argStatus !="free"){
@@ -35,7 +35,10 @@ function songInfo($argCode, $argStatus){
     }
 
     //print_r($arrTemp);
+    
     return $arrTemp;
+
+
 }
 
 function build_playlist($argInfo){

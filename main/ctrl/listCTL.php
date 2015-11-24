@@ -15,6 +15,7 @@ function listCTL($func){
     $argStatus = isset($_SESSION['status']) ? $_SESSION['status'] : null;
 
     $menu = intval($func / 100);
+
     $sub = ($func%100)/10;
     if($func%100 == 0){
         $func += 10;
@@ -29,7 +30,10 @@ function listCTL($func){
         } else {
             $pageNumb = isset($_REQUEST[$pageName]) ? $_REQUEST[$pageName] : $pageinfo['currentPage'];
         }
-        //echo $pageNumb;
+        /*var_dump($pageinfo);
+        echo "<br>";
+        echo $pageNumb."<br>".$_REQUEST[$pageName];
+        exit();*/
         $pageLimit = array(
             array(5, 10), //all song
             array(4, 8),  //top_100
@@ -71,19 +75,7 @@ function listCTL($func){
             $_SESSION['play_info'] = $info;
             popPlayer();
         }
-        //print_r($_SESSION['play_info']);
-        /*print_r($_SESSION);
-        echo "<br>";
-        echo $pageName."<br>";
-        echo $pageNumb."<br>";
-        echo $arr['count']."<br>";
-        echo $pageLimit[$menu-1][0]."<br>";
-        echo $pageLimit[$menu-1][1]."<br>";
-        print_r($pageInfo);*/
-        //print_r($pageInfo);
 
-
-        //echo redirect_to_view($_REQUEST['func'], $_REQUEST['key']);
         echo redirect_to_view($func, $_REQUEST['key']);
     }
 }

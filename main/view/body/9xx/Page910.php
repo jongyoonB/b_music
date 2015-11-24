@@ -27,13 +27,13 @@
             else{
                 echo "<span>" . "'Not Inserted Yet'" . "</span>&nbsp&nbsp";
             }
-            echo "<span><a href = './main_ctl.php?func=911&target='".$list[$index_i]['id']."'>수정</a></span>&nbsp&nbsp";
-            echo "<span><a href = './main_ctl.php?func=912&target='".$list[$index_i]['id']."'>삭제</a></span>&nbsp&nbsp";
+            echo "<span><a href = '../ctrl/main_ctrl.php?func=912&target=".$list[$index_i]['id']."'>수정</a></span>&nbsp&nbsp";
+            echo "<span><a href = '../ctrl/main_ctrl.php?func=913&target=".$list[$index_i]['id']."'>삭제</a></span>&nbsp&nbsp";
             echo "<br>";
         }
 
-        include(dirname(__FILE__) . '/../search.php');
-        searchBar( "page", $pageInfo);
+        /*include(dirname(__FILE__) . '/../search.php');
+        searchBar( "page", $pageInfo);*/
         //include(dirname(__FILE__) . '/../searchBar.php');
         include(dirname(__FILE__) . '/../pageNavi.php');
         pageNavi($pageInfo, $_REQUEST['func'],"page", $_REQUEST['key']);

@@ -7,14 +7,15 @@
  */
 session_start();
 include ('./menu/header.php');
-//print_r($_SESSION);
+
+//print_r( $_SESSION['pre_album_info']['title_info']);
+//print_r($_SESSION['pre_member_info']);
 //var_dump($_SESSION);
 //include (dirname(__FILE__).'/../css/song_list.css');
 
 /*$temp = "menu".$_REQUEST['func'];
 var_dump($_SESSION[$temp]);*/
 //echo "<Br>";
-
 ?>
 
 <!DOCTYPE html>
@@ -56,9 +57,9 @@ var_dump($_SESSION[$temp]);*/
                     if($status != "admin"){
                         include ('./menu/left_menu.php');
                     }
-                    else{
+                    /*else{
                         include ('./menu/left_menu_admin.php');
-                    }//ckedit
+                    }//ckedit*/
                  ?>
             </p>
         </div>

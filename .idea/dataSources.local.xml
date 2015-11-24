@@ -7,5 +7,11 @@
       <schema-pattern>b_music.*</schema-pattern>
       <default-schemas>b_music.*</default-schemas>
     </data-source>
+    <data-source name="MySQL - b_music@localhost" uuid="cc012a49-efc8-4e3a-8a71-fd0448ae9dad">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>b_music.*</schema-pattern>
+      <default-schemas>b_music.*</default-schemas>
+    </data-source>
   </component>
 </project>

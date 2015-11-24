@@ -6,7 +6,7 @@
  * Time: ���� 7:17
  */
 
-if($_SESSION['id'] = 'admin'){
+/*if($_SESSION['id'] = 'admin'){
     $user = "b_admin";
     $password = "B!";
 }
@@ -18,18 +18,23 @@ define("HOST", "jycom.asuscomm.com");
 define("USER", $user);
 define("PASSWORD", $password);
 define("DB", "b_music");
+define("PORT", 3306);*/
+
+
+define("HOST", "localhost");
+define("USER", "root");
+define("PASSWORD", "DB!");
+define("DB", "b_music");
 define("PORT", 3306);
 
 
-
 function DB_CONN(){
-    $conn = mysqli_connect("jycom.asuscomm.com", USER, PASSWORD, DB, PORT);
+    $conn = mysqli_connect(HOST, USER, PASSWORD, DB, PORT);
     return $conn;
 }
 
 function returnValue($argQuery){
     $result = mysqli_query(DB_CONN(), $argQuery);
-    //print_r($argQuery);
     while($row = mysqli_fetch_array($result)){
         $arrTemp[] = $row;
     }
@@ -68,6 +73,11 @@ function redirect_to_view($argFunc, $argKey){
 function redirect_to_ctrl($argFunc, $argKey){
 //function redirect_to_ctrl($argFunc, $argPage, $argKey){
     return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&key=$argKey')</script>";
+}
+
+function redirect_to_ctrlWithPage($argFunc, $argKey, $argPage){
+//function redirect_to_ctrl($argFunc, $argPage, $argKey){
+    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&key=$argKey&page=$argPage')</script>";
 }
 
 function redirect_to_ctrlWithSongCode($argFunc, $argCode){

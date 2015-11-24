@@ -17,6 +17,7 @@ function memberCTL($func){
             $login['password'] = isset($_POST['password']) ? $_POST['password'] : null;
             $stmt = login($login);
             //echo $stmt."<Br>";
+
             switch ($stmt) {
                 case 0: {
 
@@ -26,7 +27,18 @@ function memberCTL($func){
                     */
                     $check_login = logged_in($login['id']);
 
-                    switch ($check_login) {
+                    $message = "Welcome " . $login['id'];
+                    $status = userStatus($login['id']);
+
+                    $_SESSION['login_id'] = $login['id'];
+                    $_SESSION['status'] = $status['status'];
+                    //print_r($_SESSION['status']);
+                    $func = null;
+
+
+                    //아이피 중복 확인
+                    //브라우저 종료시 구현 x  -> 구현 전까지 브라우저 강제종료시 DB 수정 필요
+                    /*switch ($check_login) {
                         case 0: {
                             $message = "Welcome " . $login['id'];
                             $status = userStatus($login['id']);
@@ -40,12 +52,13 @@ function memberCTL($func){
 
                         case -1:
                         case 1: {
+
                             $message = "Plz Log-out from other";
                             $func = null;
                             break;
                         }
 
-                    }
+                    }*/
 
                     //$_SESSION['message'] = $message;
 
@@ -66,7 +79,8 @@ function memberCTL($func){
             }
             echo pop_message($message);
         }
-        echo redirect_to_view($func, $_REQUEST['page'], $_REQUEST['key']);
+
+        echo redirect_to_view($func, null);
 
     } elseif ($func == 101) {
         signOut($_SESSION['login_id']);
@@ -75,7 +89,7 @@ function memberCTL($func){
         $func = null;
         echo pop_message($message);
         //echo $func."<br>".$message."<Br>";
-        echo redirect_to_view($func, $_REQUEST['page'], $_REQUEST['key']);    }
+        echo redirect_to_view($func, null);    }
     elseif ($func == 110) {
         $memInfo['id'] = isset($_POST['id']) ? $_POST['id'] : null;
         if ($memInfo['id']) {
