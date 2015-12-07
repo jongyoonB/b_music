@@ -21,9 +21,9 @@ define("DB", "b_music");
 define("PORT", 3306);*/
 
 
-define("HOST", "localhost");
-define("USER", "root");
-define("PASSWORD", "DB!");
+define("HOST", "jycom.asuscomm.com");
+define("USER", "b_admin");
+define("PASSWORD", "B!");
 define("DB", "b_music");
 define("PORT", 3306);
 

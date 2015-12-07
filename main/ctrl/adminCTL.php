@@ -44,8 +44,8 @@ function adminCTL($func){
      *
      * 920 앨범 조회 - view
      * 921 앨범 상세 - view
-     * 922 앨범 추가 - view
-     * 923 앨범 수정 - view
+     * 922 - view, 926 앨범 추가
+     * 923 - view, 925 앨범 수정
      * 924 앨범 삭제
      *
      * 930 곡 조회 -> 앨범 상세
@@ -136,7 +136,10 @@ function adminCTL($func){
         }
 
         case 922:{
-            $func = 920;
+            $info = artist_info();
+            $_SESSION['artist_info'] = $info;
+            $func = 922;
+            echo redirect_to_view($func, null);
             break;
         }
 
@@ -169,8 +172,13 @@ function adminCTL($func){
 
         //925
         case 925:{
+            //$thumbMaxHeight = 5;
+            //$fileMaxSize = 2000000;
+            //$info['album_art'] =  isset($_FILES['album_art']) ? $_FILES['album_art'] : null;
             $info['album_code'] = isset($_SESSION['pre_album_info']['album_code']) ? $_SESSION['pre_album_info']['album_code'] : null;
-            $info['album_title'] = isset($_POST['album_title']) ? $_POST['album_title'] : null;
+            $info['album_art'] = isset($_POST['album_art']) ? $_POST['album_art'] : null;
+            //$info['album_artS'] = isset($_POST['album_artS']) ? $_POST['album_artS'] : null;
+            //$info['album_title'] = isset($_POST['album_title']) ? $_POST['album_title'] : null;
             $info['artist'] = isset($_POST['artist']) ? $_POST['artist'] : null;
             $info['artist_code'] = isset($_POST['artist_code']) ? $_POST['artist_code'] : null;
             $info['release_date'] = isset($_POST['release_date']) ? $_POST['release_date'] : null;
@@ -187,10 +195,24 @@ function adminCTL($func){
             modify_album($_SESSION['pre_album_info'][0]['album_code'], $info) or die("Query Error - Modify album");
             $_SESSION['pre_album_info']=null;
             unset( $_SESSION['pre_album_info']);
-            /* print_r($_SESSION);
-               exit("not Build Yet");*/
             $func = 920;
             echo redirect_to_ctrl($func,null);
+        }
+
+        case 926:{
+            $thumbMaxHeight = 5;
+            $fileMaxSize = 2000000;
+            //$info['album_art'] =  isset($_FILES['album_art']) ? $_FILES['album_art'] : null;
+            $info['album_code'] = isset($_SESSION['pre_album_info']['album_code']) ? $_SESSION['pre_album_info']['album_code'] : null;
+            $info['album_art'] = isset($_POST['album_art']) ? $_POST['album_art'] : null;
+            $info['album_artS'] = isset($_POST['album_artS']) ? $_POST['album_artS'] : null;
+            $info['album_title'] = isset($_POST['album_title']) ? $_POST['album_title'] : null;
+            $info['artist'] = isset($_POST['artist']) ? $_POST['artist'] : null;
+            $info['artist_code'] = isset($_POST['artist_code']) ? $_POST['artist_code'] : null;
+            $info['release_date'] = isset($_POST['release_date']) ? $_POST['release_date'] : null;
+
+            $func = 920;
+            echo redirect_to_view($func, null);
         }
 
         case 930:{
@@ -204,7 +226,33 @@ function adminCTL($func){
 
 
         case 931:{
-            echo redirect_to_view($func,null);
+            print_r($_POST);
+            echo "<BR>";
+
+            print_r($_POST['artist_code']);
+            echo "<BR>";
+
+            print_r($_POST['album_title']);
+            echo "<BR>";
+
+            print_r($_POST['release_date']);
+            echo "<BR>";
+
+            print_r($_POST['album_art']);
+            echo "<BR>";
+
+            print_r($_POST['title_name']);
+            echo "<BR>";
+
+            print_r($_POST['track_num']);
+            echo "<BR>";
+
+            print_r($_POST['genre']);
+            echo "<BR>";
+
+
+
+            //echo redirect_to_view($func,null);
             break;
         }
 

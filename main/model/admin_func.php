@@ -191,8 +191,29 @@ function list_album($argPage, $perPage, $arrKey, $arrKeyOption){
 
 
 //922
-function add_album(){
+function add_album($argInfo){
+    $query="";
+    if($argInfo['artist']){
+        //$query = "insert artist";
+        //$query = "insert into album_info VALUES ('".$argInfo['']."', '".$argInfo['']."', '".$argInfo['']."','".$argInfo['']."','".artimgPath."')";
+        mysqli_query(DB_CONN(), $query) or die("insert album data Failed - with new artist");
+    }
+    else{
+        //$query = "insert into album_info VALUES ('".$argInfo['']."', '".$argInfo['']."', '".$argInfo['']."','".$argInfo['']."','".artimgPath."')";
+        mysqli_query(DB_CONN(), $query) or die("insert album data Failed");
+    }
 
+    for($index_i = 0 ; $index_i < count($argInfo['']) ; $index_i ++){
+        //$query = "insert into title_info VALUES ()";
+        mysqli_query(DB_CONN(), $query) or die ("insert title data Failed");
+    }
+
+}
+
+function artist_info(){
+    $query = "select * from artist";
+    $arrTemp = returnValue($query);
+    return $arrTemp;
 }
 
 //923

@@ -1,0 +1,24 @@
+ <?php
+            for($index_i = 1 ; $index_i <= count($info) ; $index_i ++){
+                echo "{";
+                echo "";
+                echo "text: \"".$info[($index_i-1)]['artist_name']."\", ";
+                echo "value: ".$index_i.", ";
+                echo "selected: false, ";
+                echo "description: \"".$info[($index_i-1)]['artist_info']."\", ";
+                echo "imageSrc: \"".$info[($index_i-1)]['artist_image']."\"";
+                echo "}";
+                if($index_i != count($info)){
+                    echo ", ";
+                }
+            }
+        ?>
+
+
+data: artistData,
+        selectText: "아티스트 선택",
+        width: 300,
+        imagePosition: "left",
+        onSelected: function (data) {
+            console.log(data);
+        }

@@ -11,7 +11,7 @@
       <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="album_title" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
       <column name="artist_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="release_date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="release_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="art_url" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="album_code"/>
       <foreign-key name="album_info_ibfk_1" columns="artist_code" ref-table="artist" ref-schema="" ref-catalog="b_music" ref-columns="artist_code" update-rule="0" delete-rule="3" deferrability="2"/>
@@ -46,73 +46,6 @@
       <column name="곡 명" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
       <column name="앨범" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
       <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="아티스트" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="장르" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
-      <column name="발매 일" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
-      <column name="hits" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="url" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="url_short" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="art_url" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-    </table>
-    <table name="title_info" schema="" catalog="b_music" type="TABLE">
-      <column name="title_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="title_name" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
-      <column name="track_num" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="genre" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
-      <column name="hits" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="url" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="url_short" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="title_code"/>
-      <foreign-key name="title_info_ibfk_1" columns="album_code" ref-table="album_info" ref-schema="" ref-catalog="b_music" ref-columns="album_code" update-rule="0" delete-rule="3" deferrability="2"/>
-    </table>
-  </data-source>
-  <data-source name="MySQL - b_music@localhost" uuid="cc012a49-efc8-4e3a-8a71-fd0448ae9dad">
-    <database-info product="MySQL" version="5.6.26" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
-      <extra-name-characters>#@</extra-name-characters>
-      <identifier-quote-string>`</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
-    <schema name="" catalog="b_music"/>
-    <table name="album_info" schema="" catalog="b_music" type="TABLE">
-      <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="album_title" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="artist_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="release_date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
-      <column name="art_url" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="album_code"/>
-      <foreign-key name="album_info_ibfk_1" columns="artist_code" ref-table="artist" ref-schema="" ref-catalog="b_music" ref-columns="artist_code" update-rule="0" delete-rule="3" deferrability="2"/>
-      <exported-key name="title_info_ibfk_1" table="title_info" schema="" catalog="b_music" columns="album_code"/>
-    </table>
-    <table name="album_list" schema="" catalog="b_music" type="VIEW">
-      <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="앨범 명" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="아티스트" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="art_url" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-    </table>
-    <table name="artist" schema="" catalog="b_music" type="TABLE">
-      <column name="artist_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="artist_name" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="artist_info" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="artist_image" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="false" jdbcType="-1"/>
-      <primary-key name="PRIMARY" columns="artist_code"/>
-      <exported-key name="album_info_ibfk_1" table="album_info" schema="" catalog="b_music" columns="artist_code"/>
-    </table>
-    <table name="member" schema="" catalog="b_music" type="TABLE">
-      <column name="id" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
-      <column name="e_mail" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="nick" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
-      <column name="status" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
-      <column name="remain_play" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="ip_add" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="song_list" schema="" catalog="b_music" type="VIEW">
-      <column name="title_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="곡 명" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
-      <column name="앨범" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
-      <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="아티스트" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
       <column name="장르" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
       <column name="발매 일" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>

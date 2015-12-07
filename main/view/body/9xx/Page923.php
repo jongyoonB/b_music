@@ -11,9 +11,10 @@
 
 
 
-<form action="../ctrl/main_ctrl.php?func=925" method="post">
+<form action="../ctrl/main_ctrl.php?func=925" method="post" enctype="multipart/form-data">
     <div>
         <span><img src="<?php echo $pre_info[0]['art_url'];?>"></span>
+        <spqm><input name='album_art' type='file'></spqm><br>
         <span></span>
         <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title' value="<?php echo $pre_info[0]['album_title']?>"></span><br>
         <span>아티스트&nbsp:&nbsp<input type="text" name = 'artist' value="<?php echo $pre_info['artist_info'][0]['artist_name']?>" readonly></span><br>
@@ -38,5 +39,5 @@
 
 <!--    <input type = "hidden" name = "func" value="923">
 -->    <input type="submit" value="수정">
-    <input type="button" onclick="location.replace(-1)">
+    <input type="button" onclick="history.back()">
 </form>
