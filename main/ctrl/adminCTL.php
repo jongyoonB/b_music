@@ -200,18 +200,71 @@ function adminCTL($func){
         }
 
         case 926:{
-            $thumbMaxHeight = 5;
+
+            $albumArtPath = "../../img/product/";
+            $thumbnailPath = "../../img/product_s/";
+            $thumbnailMaxHeight = 5;
             $fileMaxSize = 2000000;
-            //$info['album_art'] =  isset($_FILES['album_art']) ? $_FILES['album_art'] : null;
-            $info['album_code'] = isset($_SESSION['pre_album_info']['album_code']) ? $_SESSION['pre_album_info']['album_code'] : null;
+
+            $info['album_title'] = isset($_POST['album_title']) ? $_POST['album_title'] : null;
+            $info['release_date'] = isset($_POST['release_date']) ? $_POST['release_date'] : null;
+            $info['artist_code'] = isset($_POST['artist_code']) ? $_POST['artist_code'] : null;
+            $info['title_name'] = isset($_POST['title_name']) ? $_POST['title_name'] : null;
+            $info['track_num'] = isset($_POST['track_num']) ? $_POST['track_num.'] : null;
+            $info['genre'] = isset($_POST['genre']) ? $_POST['genre'] : null;
             $info['album_art'] = isset($_POST['album_art']) ? $_POST['album_art'] : null;
             $info['album_artS'] = isset($_POST['album_artS']) ? $_POST['album_artS'] : null;
-            $info['album_title'] = isset($_POST['album_title']) ? $_POST['album_title'] : null;
-            $info['artist'] = isset($_POST['artist']) ? $_POST['artist'] : null;
-            $info['artist_code'] = isset($_POST['artist_code']) ? $_POST['artist_code'] : null;
-            $info['release_date'] = isset($_POST['release_date']) ? $_POST['release_date'] : null;
 
-            $func = 920;
+            $add_result = add_album($info);
+            if(!$add_result['result']){
+                $func = 922;
+                pop_message("Error while add new album");
+                redirect_to_ctrl($func);
+            }
+
+            else{             
+                $Tcode = $add_result['Tcode'];
+
+                $upLoadImgInfo['name'] = isset($_FILES['album_art']['name']) ? ($_FILES['album_art']['name']) : null;
+                $upLoadImgInfo['tmp_name'] = isset($_FILES['album_art']['tmp_name']) ? ($_FILES['album_art']['tmp_name']) : null;
+                $upLoadImgInfo['type'] = isset($_FILES['album_art']['type']) ? ($_FILES['album_art']['type']) : null;
+                $upLoadImgInfo['size'] = isset($_FILES['album_art']['size']) ? ($_FILES['album_art']['size']) : null;
+                $upLoadImgInfo['error'] = isset($_FILES['album_art']['error']) ? ($_FILES['album_art']['error']) : null;
+            }
+
+            if( $upLoadImgInfo['name'] && $upLoadImgInfo['error'] == 0){
+                $imgType = pathinfo($upLoadImgInfo['name'],PATHINFO_EXTENSION); //이미지 파일 확장자 추출
+
+                $fileName = strval($info['album_code'])."-".strval($Tcode);
+                $fileNameWithExt = $fileName.".".strval($imgType);
+                $thumbnailWithExt = $fileName."_S".".".strval($imgType);
+
+                $upload_result = singleFileUpload($upLoadImgInfo, $albumArtPath, $fileNameWithExt, $fileMaxSize);  // commonLIB.php 포함 함수
+
+                if( $upload_result['uploadOk'] ){ // 업로드가 성공 했다면.
+                    $info['album_art'] = $fileNameWithExt; // pfimage 값 설정
+
+                    // 이미지 파일이 jpg, png, gif 포맷이면 썸네일 이미지 생성
+                    if( $imgType == "jpg" || $imgType == "jpeg" || $imgType == "png" || $imgType == "gif"){
+                        $src = $albumArtPath.strval($fileNameWithExt);
+                        $thumbSrc = $thumbnailPath.strval($thumbnailWithExt);
+                        makeThumbnailImage($src, $thumbSrc, $thumbnailMaxHeight, $imgType);
+
+                        $info['album_artS'] = $thumbnailWithExt; // psimage 값 설정
+
+                    }
+                }
+            }
+
+            $update_result = updateThumbnail($info['album_artS']);
+            if($update_result){
+                $func = 920;
+            }
+            else{
+                $func = 922;
+                pop_message("Error while Thumbnail make");
+            }
+
             echo redirect_to_view($func, null);
         }
 
@@ -226,33 +279,8 @@ function adminCTL($func){
 
 
         case 931:{
-            print_r($_POST);
-            echo "<BR>";
 
-            print_r($_POST['artist_code']);
-            echo "<BR>";
-
-            print_r($_POST['album_title']);
-            echo "<BR>";
-
-            print_r($_POST['release_date']);
-            echo "<BR>";
-
-            print_r($_POST['album_art']);
-            echo "<BR>";
-
-            print_r($_POST['title_name']);
-            echo "<BR>";
-
-            print_r($_POST['track_num']);
-            echo "<BR>";
-
-            print_r($_POST['genre']);
-            echo "<BR>";
-
-
-
-            //echo redirect_to_view($func,null);
+            echo redirect_to_view($func,null);
             break;
         }
 

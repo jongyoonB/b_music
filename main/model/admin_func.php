@@ -202,11 +202,16 @@ function add_album($argInfo){
         //$query = "insert into album_info VALUES ('".$argInfo['']."', '".$argInfo['']."', '".$argInfo['']."','".$argInfo['']."','".artimgPath."')";
         mysqli_query(DB_CONN(), $query) or die("insert album data Failed");
     }
+    $Tcode = mysqli_insert_id();
 
     for($index_i = 0 ; $index_i < count($argInfo['']) ; $index_i ++){
         //$query = "insert into title_info VALUES ()";
-        mysqli_query(DB_CONN(), $query) or die ("insert title data Failed");
+        $exeResult = mysqli_query(DB_CONN(), $query) or die ("insert title data Failed");
     }
+
+    $result['result'] = $exeResult;
+    $result['Tcode'] = $Tcode;
+    return $result;
 
 }
 
@@ -232,18 +237,20 @@ function modify_album($argAlbum_code, $argInfo){
 //924
 function delete_album($argAlbum_code){
     $title_list = list_titleDeleteAlbum($argAlbum_code);
-    for($index_i = 0 ; $index_i < count($title_list) ; $index_i) {
-        $query_deleteTitle = "DELETE FROM title_info WHERE title_code = '" . $title_list[$index_i] . "'";
-        $result = mysqli_query(DB_CONN(), $query_deleteTitle) or die("Delete Title Failed - func = ".$_REQUEST['func']);
+
+    if($title_list){
+        for($index_i = 0 ; $index_i < count($title_list) ; $index_i++) {
+            $query_deleteTitle = "DELETE FROM title_info WHERE title_code = '" . $title_list[$index_i]['title_code'] . "'";
+            $result = mysqli_query(DB_CONN(), $query_deleteTitle) or die("Delete Title Failed - func = ".$_REQUEST['func']);
+        }
     }
-    $query = "delete from album_info where id = '".$argAlbum_code."'";
+    $query = "delete from album_info where album_code = '".$argAlbum_code."'";
     return mysqli_query(DB_CONN(), $query) or die("Delete Album Failed");
 }
 
 function list_titleDeleteAlbum($argAlbum_code){
     $query = "select title_info.title_code from title_info where title_info.album_code = '".$argAlbum_code."'";
-    $result = mysqli_query(DB_CONN(), $query);
-    return returnValue($result);
+    return returnValue($query);
 }
 
 //930
