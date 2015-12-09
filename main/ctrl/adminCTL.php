@@ -200,30 +200,38 @@ function adminCTL($func){
         }
 
         case 926:{
+            //fileInfo lib
+            require_once '../common/plugin/getid3/getid3.php';
 
-            $albumArtPath = "../../img/product/";
-            $thumbnailPath = "../../img/product_s/";
-            $thumbnailMaxHeight = 5;
+
+            $albumArtPath = "../art/";
+            $thumbnailPath = "../art/artS/";
+            $thumbnailMaxHeight = 100;
             $fileMaxSize = 2000000;
+            $mp3Path = "d:/study/git/B_music/main/mp3/";
+            $mp3PrePath = "../mp3/pre";
 
             $info['album_title'] = isset($_POST['album_title']) ? $_POST['album_title'] : null;
             $info['release_date'] = isset($_POST['release_date']) ? $_POST['release_date'] : null;
             $info['artist_code'] = isset($_POST['artist_code']) ? $_POST['artist_code'] : null;
             $info['title_name'] = isset($_POST['title_name']) ? $_POST['title_name'] : null;
-            $info['track_num'] = isset($_POST['track_num']) ? $_POST['track_num.'] : null;
+            $info['track_num'] = isset($_POST['track_num']) ? $_POST['track_num'] : null;
             $info['genre'] = isset($_POST['genre']) ? $_POST['genre'] : null;
+            $info['url'] = isset($_POST['url']) ? $_POST['url'] : null;
+            $info['urlS'] = isset($_POST['urlS']) ? $_POST['urlS'] : null;
             $info['album_art'] = isset($_POST['album_art']) ? $_POST['album_art'] : null;
             $info['album_artS'] = isset($_POST['album_artS']) ? $_POST['album_artS'] : null;
+            //print_r($_FILES);
 
             $add_result = add_album($info);
             if(!$add_result['result']){
                 $func = 922;
                 pop_message("Error while add new album");
-                redirect_to_ctrl($func);
+                redirect_to_ctrl($func, null);
             }
 
             else{             
-                $Tcode = $add_result['Tcode'];
+                $Acode = $add_result['Acode'];
 
                 $upLoadImgInfo['name'] = isset($_FILES['album_art']['name']) ? ($_FILES['album_art']['name']) : null;
                 $upLoadImgInfo['tmp_name'] = isset($_FILES['album_art']['tmp_name']) ? ($_FILES['album_art']['tmp_name']) : null;
@@ -235,11 +243,12 @@ function adminCTL($func){
             if( $upLoadImgInfo['name'] && $upLoadImgInfo['error'] == 0){
                 $imgType = pathinfo($upLoadImgInfo['name'],PATHINFO_EXTENSION); //이미지 파일 확장자 추출
 
-                $fileName = strval($info['album_code'])."-".strval($Tcode);
+                $fileName = strval($Acode);
                 $fileNameWithExt = $fileName.".".strval($imgType);
                 $thumbnailWithExt = $fileName."_S".".".strval($imgType);
 
                 $upload_result = singleFileUpload($upLoadImgInfo, $albumArtPath, $fileNameWithExt, $fileMaxSize);  // commonLIB.php 포함 함수
+                //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";
 
                 if( $upload_result['uploadOk'] ){ // 업로드가 성공 했다면.
                     $info['album_art'] = $fileNameWithExt; // pfimage 값 설정
@@ -256,13 +265,83 @@ function adminCTL($func){
                 }
             }
 
-            $update_result = updateThumbnail($info['album_artS']);
-            if($update_result){
-                $func = 920;
-            }
-            else{
+            $update_result = updateThumbnail($info['album_art'], $info['album_artS'], $Acode);
+            if(!$update_result){
                 $func = 922;
-                pop_message("Error while Thumbnail make");
+                pop_message("Error while Update Thumbnail");
+            }
+
+
+            //mp3 upload
+            else{
+                //loop upload
+                for($index_i = 0 ; count($info['track_num']) ; $index_i++){}
+                $add_result = add_title($info, $Acode);
+                if(!$add_result['result']){
+                    $func = 922;
+                    pop_message("Error while add title");
+                    redirect_to_ctrl($func, null);
+                }
+
+                else{
+                    $Acode = $add_result['Acode'];
+
+                    $upLoadImgInfo['name'] = isset($_FILES['album_art']['name']) ? ($_FILES['album_art']['name']) : null;
+                    $upLoadImgInfo['tmp_name'] = isset($_FILES['album_art']['tmp_name']) ? ($_FILES['album_art']['tmp_name']) : null;
+                    $upLoadImgInfo['type'] = isset($_FILES['album_art']['type']) ? ($_FILES['album_art']['type']) : null;
+                    $upLoadImgInfo['size'] = isset($_FILES['album_art']['size']) ? ($_FILES['album_art']['size']) : null;
+                    $upLoadImgInfo['error'] = isset($_FILES['album_art']['error']) ? ($_FILES['album_art']['error']) : null;
+                }
+
+                if( $upLoadImgInfo['name'] && $upLoadImgInfo['error'] == 0){
+                    $imgType = pathinfo($upLoadImgInfo['name'],PATHINFO_EXTENSION); //이미지 파일 확장자 추출
+
+                    $fileName = strval($Acode);
+                    $fileNameWithExt = $fileName.".".strval($imgType);
+                    $thumbnailWithExt = $fileName."_S".".".strval($imgType);
+
+                    $upload_result = singleFileUpload($upLoadImgInfo, $albumArtPath, $fileNameWithExt, $fileMaxSize);  // commonLIB.php 포함 함수
+                    //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";
+
+                    if( $upload_result['uploadOk'] ){ // 업로드가 성공 했다면.
+                        $info['album_art'] = $fileNameWithExt; // pfimage 값 설정
+
+                        // 이미지 파일이 jpg, png, gif 포맷이면 썸네일 이미지 생성
+                        if( $imgType == "jpg" || $imgType == "jpeg" || $imgType == "png" || $imgType == "gif"){
+                            $src = $albumArtPath.strval($fileNameWithExt);
+                            $thumbSrc = $thumbnailPath.strval($thumbnailWithExt);
+                            makeThumbnailImage($src, $thumbSrc, $thumbnailMaxHeight, $imgType);
+
+                            $info['album_artS'] = $thumbnailWithExt; // psimage 값 설정
+
+                        }
+                    }
+                }
+
+                $update_result = updateThumbnail($info['album_art'], $info['album_artS'], $Acode);
+                if(!$update_result){
+                    $func = 922;
+                    pop_message("Error while Update Thumbnail");
+                }
+
+                //checks tags
+                $getID3 = new getID3();
+                $tags = $getID3->analyze($mp3Path);
+                getid3_lib::CopyTagsToComments($tags);
+
+                echo $tags['tags']['id3v2']['title'][0];  // title from ID3v2
+                echo "<BR>";
+                echo $tags['tags']['id3v2']['track_number'][0];  // title from ID3v2
+                echo "<BR>";
+                echo $tags['tags']['id3v2']['artist'][0];  // title from ID3v2
+                echo "<BR>";
+                echo $tags['tags']['id3v2']['genre'][0];  // title from ID3v2
+                echo "<BR>";
+                echo $tags['tags']['id3v2']['length'][0];  // title from ID3v2
+                echo "<BR>";
+                echo $tags['fileformat'];
+                echo "<BR>";
+
             }
 
             echo redirect_to_view($func, null);

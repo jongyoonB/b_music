@@ -27,7 +27,7 @@ if(!$info){
     })
 </script>
 
-<form action="../ctrl/main_ctrl.php?func=926" method="post">
+<form action="../ctrl/main_ctrl.php?func=926" method="post" enctype="multipart/form-data">
     <div>
         <span><input name='album_art' type='file'></span><br>
         <span></span><!--앨범아트 미리보기 창 추가 버튼시 팝업(추가후 새로고침, 리다x)-->

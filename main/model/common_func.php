@@ -100,7 +100,8 @@ function singleFileUpload($uploadFileInfo, $uploadPath, $saveFileName, $fileMaxS
     if ($returnArr['uploadOk'] == 0) {
         $returnArr['msg'][4] = "Sorry, your file was not uploaded.";
     } else {
-        if (move_uploaded_file($uploadFileInfo["tmp_name"], $targetFile)) {
+        $filename = iconv("EUC-KR", "UTF-8",$uploadFileInfo["tmp_name"]);
+        if (move_uploaded_file($filename, $targetFile)) {
             $returnArr['msg'][5] = "The file ". basename( $uploadFileInfo["name"]). " has been uploaded.";
         } else {
             $returnArr['msg'][5] = "Sorry, there was an error uploading your file.";
@@ -130,7 +131,7 @@ function makeThumbnailImage($src, $thumbSrc, $maxHeight, $imgType) {
     // 버추얼 이미지를 생성
     $virtualImage = imagecreatetruecolor($maxWidth, $maxHeight);
 
-    // 조정된 사이즈로 원본 이미지를 버추얼 이미지로 복사.
+    // 조정된0 사이즈로 원본 이미지를 버추얼 이미지로 복사.
     imagecopyresampled($virtualImage, $sourceImage, 0, 0, 0, 0, $maxWidth, $maxHeight, $width, $height);
 
     // 지정된 위치에 thumbnail 이미지 생성

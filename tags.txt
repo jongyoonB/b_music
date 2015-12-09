@@ -1,0 +1,17 @@
+filesize
+fileformat
+filepath
+filename
+filenamepath
+
+[tags]
+	[id3v1]
+title
+artist
+album
+genre
+length
+
+
+파일 복사 -> 트랙1,2,3,4,5
+tag->DB입력->삭제

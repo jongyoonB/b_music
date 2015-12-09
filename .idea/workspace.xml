@@ -3,6 +3,7 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/main/view/body/pageNavi.php" line="49" />
     <bookmark url="file://$PROJECT_DIR$/main/view/body/9xx/Page912.php" line="6" />
+    <bookmark url="file://$PROJECT_DIR$/main/model/admin_func.php" line="209" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a99538b5-129d-40f9-b3d0-26b16cfe633f" name="Default" comment="" />
@@ -143,8 +144,8 @@
       <file leaf-file-name="adminCTL.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/ctrl/adminCTL.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.034129694">
-              <caret line="224" column="30" selection-start-line="224" selection-start-column="30" selection-end-line="224" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.52797204">
+              <caret line="279" column="43" selection-start-line="279" selection-start-column="43" selection-end-line="279" selection-end-column="43" />
               <folding>
                 <element signature="e#6#93#0#PHP" expanded="true" />
               </folding>
@@ -152,52 +153,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common_func.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/model/common_func.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.461538">
-              <caret line="109" column="14" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="admin_func.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/model/admin_func.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.536232">
-              <caret line="213" column="19" selection-start-line="213" selection-start-column="19" selection-end-line="213" selection-end-column="19" />
+            <state vertical-scroll-proportion="-13.128205">
+              <caret line="202" column="66" selection-start-line="202" selection-start-column="66" selection-end-line="202" selection-end-column="66" />
               <folding>
-                <marker date="1449576101053" expanded="true" signature="215:235" placeholder="select * fro..member..." />
-                <marker date="1449576101053" expanded="true" signature="253:280" placeholder="select count..member..." />
-                <marker date="1449576101053" expanded="true" signature="2895:3073" placeholder="update membe..." />
-                <marker date="1449576101053" expanded="true" signature="3175:3217" placeholder="delete from ..." />
-                <marker date="1449576101053" expanded="true" signature="3312:3356" placeholder="select * fro..member..." />
-                <marker date="1449576101053" expanded="true" signature="3576:3600" placeholder="select * fro..album_list..." />
-                <marker date="1449576101053" expanded="true" signature="3618:3649" placeholder="select count..album_list..." />
-                <marker date="1449576101053" expanded="true" signature="6169:6189" placeholder="select * fro..artist..." />
-                <marker date="1449576101053" expanded="true" signature="6416:6616" placeholder="update title..." />
-                <marker date="1449576101053" expanded="true" signature="6780:6969" placeholder="update album..." />
-                <marker date="1449576101053" expanded="true" signature="7320:7407" placeholder="DELETE FROM ..." />
-                <marker date="1449576101053" expanded="true" signature="7565:7627" placeholder="delete from ..." />
-                <marker date="1449576101053" expanded="true" signature="7769:7864" placeholder="select title..title_info..." />
-                <marker date="1449576101053" expanded="true" signature="7988:8011" placeholder="select * fro..song_list..." />
-                <marker date="1449576101053" expanded="true" signature="8029:8059" placeholder="select count..song_list..." />
-                <marker date="1449576101053" expanded="true" signature="9898:9953" placeholder="delete from ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Page922.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main/view/body/9xx/Page922.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.6923075">
-              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
-              <folding>
-                <marker date="1449575563603" expanded="true" signature="1795:1938" placeholder="..." />
-                <marker date="1449575563603" expanded="true" signature="1834:1919" placeholder="{...}" />
-                <marker date="1449575563603" expanded="true" signature="1886:1905" placeholder="{...}" />
+                <marker date="1449665995319" expanded="true" signature="215:235" placeholder="select * fro..member..." />
+                <marker date="1449665995319" expanded="true" signature="253:280" placeholder="select count..member..." />
+                <marker date="1449665995319" expanded="true" signature="2895:3073" placeholder="update membe..." />
+                <marker date="1449665995319" expanded="true" signature="3175:3217" placeholder="delete from ..." />
+                <marker date="1449665995319" expanded="true" signature="3312:3356" placeholder="select * fro..member..." />
+                <marker date="1449665995319" expanded="true" signature="3576:3600" placeholder="select * fro..album_list..." />
+                <marker date="1449665995319" expanded="true" signature="3618:3649" placeholder="select count..album_list..." />
+                <marker date="1449665995319" expanded="true" signature="5310:5552" placeholder="insert into ..." />
+                <marker date="1449665995319" expanded="true" signature="5796:6078" placeholder="insert into ..." />
+                <marker date="1449665995319" expanded="true" signature="6374:6486" placeholder="update album..." />
+                <marker date="1449665995319" expanded="true" signature="6598:6618" placeholder="select * fro..artist..." />
+                <marker date="1449665995319" expanded="true" signature="6845:7045" placeholder="update title..." />
+                <marker date="1449665995319" expanded="true" signature="7209:7398" placeholder="update album..." />
+                <marker date="1449665995319" expanded="true" signature="7749:7836" placeholder="DELETE FROM ..." />
+                <marker date="1449665995319" expanded="true" signature="7994:8056" placeholder="delete from ..." />
+                <marker date="1449665995319" expanded="true" signature="8198:8293" placeholder="select title..title_info..." />
+                <marker date="1449665995319" expanded="true" signature="8417:8440" placeholder="select * fro..song_list..." />
+                <marker date="1449665995319" expanded="true" signature="8458:8488" placeholder="select count..song_list..." />
+                <marker date="1449665995319" expanded="true" signature="11421:11476" placeholder="delete from ..." />
               </folding>
             </state>
           </provider>
@@ -219,7 +199,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main/css/reset.css" />
         <option value="$PROJECT_DIR$/main/view/menu/footer.php" />
         <option value="$PROJECT_DIR$/main/css/layout.css" />
         <option value="$PROJECT_DIR$/main/view/body/1xx/Page100.php" />
@@ -265,11 +244,12 @@
         <option value="$PROJECT_DIR$/main/common/plugin/js/data/artist_data.php" />
         <option value="$PROJECT_DIR$/main/view/body/9xx/Page926.php" />
         <option value="$PROJECT_DIR$/main/view/body/9xx/Page931.php" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/d849ba2f-11a1-40c2-b003-b4423d11a998/console.sql" />
         <option value="$PROJECT_DIR$/main/view/body/9xx/Page922.php" />
-        <option value="$PROJECT_DIR$/main/model/admin_func.php" />
+        <option value="$PROJECT_DIR$/../../getID3-1.9.10/demos/demo.basic.php" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/d849ba2f-11a1-40c2-b003-b4423d11a998/console.sql" />
         <option value="$PROJECT_DIR$/main/model/common_func.php" />
         <option value="$PROJECT_DIR$/main/ctrl/adminCTL.php" />
+        <option value="$PROJECT_DIR$/main/model/admin_func.php" />
       </list>
     </option>
   </component>
@@ -438,32 +418,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="B_music" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="b_music" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="body" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="9xx" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -482,15 +436,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="body" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="1xx" />
+              <option name="myItemId" value="mp3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -543,26 +489,8 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="B_music" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="b_music" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -587,10 +515,6 @@
               <option name="myItemId" value="plugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -603,18 +527,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jquery-jplayer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -720,7 +632,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19535375" sideWeight="0.43020833" order="7" side_tool="true" content_ui="tabs" />
@@ -728,9 +640,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32946146" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3252376" sideWeight="0.62578124" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22291666" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32418162" sideWeight="0.62578124" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1796875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22239584" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19640972" sideWeight="0.5697917" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -759,41 +671,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main/ctrl/adminCTL.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
-          <folding>
-            <element signature="e#6#93#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main/view/body/9xx/Page923.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/_superglobals.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3399478">
-          <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/model/sign_in.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.36777583">
           <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/cc012a49-efc8-4e3a-8a71-fd0448ae9dad/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="3548" selection-start-line="0" selection-start-column="3548" selection-end-line="0" selection-end-column="3548" />
         </state>
       </provider>
     </entry>
@@ -996,42 +877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..album_list">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..song_list">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..member">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main/view/body/9xx/Page923.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.71672356">
@@ -1050,7 +895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9761092">
           <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,28 +909,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13651878">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..artist">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d849ba2f-11a1-40c2-b003-b4423d11a998/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="78" selection-start-line="0" selection-start-column="78" selection-end-line="0" selection-end-column="78" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1098,81 +920,162 @@
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..album_info">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/ibm_db2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1283505">
+          <caret line="1724" column="33" selection-start-line="1724" selection-start-column="33" selection-end-line="1724" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..title_info">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+    <entry file="file://$PROJECT_DIR$/../../getID3-1.9.10/getid3/module.tag.id3v2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30716723">
+          <caret line="442" column="0" selection-start-line="442" selection-start-column="0" selection-end-line="442" selection-end-column="0" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../getID3-1.9.10/getid3/write.id3v2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35608646">
+          <caret line="1815" column="59" selection-start-line="1815" selection-start-column="59" selection-end-line="1815" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../getID3-1.9.10/getid3/module.tag.id3v1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07067138">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/view/body/9xx/Page922.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.6923075">
-          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.35153583">
+          <caret line="58" column="31" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/common/plugin/getid3/getid3.lib.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.7064847">
+          <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/common/plugin/getid3/module.tag.id3v2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/common/plugin/getid3/getid3.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="245" column="20" selection-start-line="245" selection-start-column="20" selection-end-line="245" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../getID3-1.9.10/demos/demo.basic.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72696245">
+          <caret line="51" column="2" selection-start-line="51" selection-start-column="2" selection-end-line="51" selection-end-column="2" />
           <folding>
-            <marker date="1449575563603" expanded="true" signature="1795:1938" placeholder="..." />
-            <marker date="1449575563603" expanded="true" signature="1834:1919" placeholder="{...}" />
-            <marker date="1449575563603" expanded="true" signature="1886:1905" placeholder="{...}" />
+            <element signature="e#6#71#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/model/admin_func.php">
+    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..member">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/d849ba2f-11a1-40c2-b003-b4423d11a998/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.536232">
-          <caret line="213" column="19" selection-start-line="213" selection-start-column="19" selection-end-line="213" selection-end-column="19" />
-          <folding>
-            <marker date="1449576101053" expanded="true" signature="215:235" placeholder="select * fro..member..." />
-            <marker date="1449576101053" expanded="true" signature="253:280" placeholder="select count..member..." />
-            <marker date="1449576101053" expanded="true" signature="2895:3073" placeholder="update membe..." />
-            <marker date="1449576101053" expanded="true" signature="3175:3217" placeholder="delete from ..." />
-            <marker date="1449576101053" expanded="true" signature="3312:3356" placeholder="select * fro..member..." />
-            <marker date="1449576101053" expanded="true" signature="3576:3600" placeholder="select * fro..album_list..." />
-            <marker date="1449576101053" expanded="true" signature="3618:3649" placeholder="select count..album_list..." />
-            <marker date="1449576101053" expanded="true" signature="6169:6189" placeholder="select * fro..artist..." />
-            <marker date="1449576101053" expanded="true" signature="6416:6616" placeholder="update title..." />
-            <marker date="1449576101053" expanded="true" signature="6780:6969" placeholder="update album..." />
-            <marker date="1449576101053" expanded="true" signature="7320:7407" placeholder="DELETE FROM ..." />
-            <marker date="1449576101053" expanded="true" signature="7565:7627" placeholder="delete from ..." />
-            <marker date="1449576101053" expanded="true" signature="7769:7864" placeholder="select title..title_info..." />
-            <marker date="1449576101053" expanded="true" signature="7988:8011" placeholder="select * fro..song_list..." />
-            <marker date="1449576101053" expanded="true" signature="8029:8059" placeholder="select count..song_list..." />
-            <marker date="1449576101053" expanded="true" signature="9898:9953" placeholder="delete from ..." />
-          </folding>
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="91" selection-start-line="0" selection-start-column="91" selection-end-line="0" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..title_info">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/d6d11645/d849ba2f-11a1-40c2-b003-b4423d11a998/b_music..album_info">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/model/common_func.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.461538">
-          <caret line="109" column="14" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
+        <state vertical-scroll-proportion="-7.884058">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/model/admin_func.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.128205">
+          <caret line="202" column="66" selection-start-line="202" selection-start-column="66" selection-end-line="202" selection-end-column="66" />
+          <folding>
+            <marker date="1449665995319" expanded="true" signature="215:235" placeholder="select * fro..member..." />
+            <marker date="1449665995319" expanded="true" signature="253:280" placeholder="select count..member..." />
+            <marker date="1449665995319" expanded="true" signature="2895:3073" placeholder="update membe..." />
+            <marker date="1449665995319" expanded="true" signature="3175:3217" placeholder="delete from ..." />
+            <marker date="1449665995319" expanded="true" signature="3312:3356" placeholder="select * fro..member..." />
+            <marker date="1449665995319" expanded="true" signature="3576:3600" placeholder="select * fro..album_list..." />
+            <marker date="1449665995319" expanded="true" signature="3618:3649" placeholder="select count..album_list..." />
+            <marker date="1449665995319" expanded="true" signature="5310:5552" placeholder="insert into ..." />
+            <marker date="1449665995319" expanded="true" signature="5796:6078" placeholder="insert into ..." />
+            <marker date="1449665995319" expanded="true" signature="6374:6486" placeholder="update album..." />
+            <marker date="1449665995319" expanded="true" signature="6598:6618" placeholder="select * fro..artist..." />
+            <marker date="1449665995319" expanded="true" signature="6845:7045" placeholder="update title..." />
+            <marker date="1449665995319" expanded="true" signature="7209:7398" placeholder="update album..." />
+            <marker date="1449665995319" expanded="true" signature="7749:7836" placeholder="DELETE FROM ..." />
+            <marker date="1449665995319" expanded="true" signature="7994:8056" placeholder="delete from ..." />
+            <marker date="1449665995319" expanded="true" signature="8198:8293" placeholder="select title..title_info..." />
+            <marker date="1449665995319" expanded="true" signature="8417:8440" placeholder="select * fro..song_list..." />
+            <marker date="1449665995319" expanded="true" signature="8458:8488" placeholder="select count..song_list..." />
+            <marker date="1449665995319" expanded="true" signature="11421:11476" placeholder="delete from ..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/ctrl/adminCTL.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.034129694">
-          <caret line="224" column="30" selection-start-line="224" selection-start-column="30" selection-end-line="224" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.52797204">
+          <caret line="279" column="43" selection-start-line="279" selection-start-column="43" selection-end-line="279" selection-end-column="43" />
           <folding>
             <element signature="e#6#93#0#PHP" expanded="true" />
           </folding>
