@@ -7,6 +7,8 @@
  */
 session_start();
 include ('./menu/header.php');
+include ('../common/path.php');
+include ('../common/js_include.php');
 
 //print_r( $_SESSION['pre_album_info']['title_info']);
 //print_r($_SESSION['pre_member_info']);

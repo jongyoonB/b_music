@@ -61,8 +61,31 @@ function pageInfo($argPage, $cntRecord, $perPage, $perBlock){
 
 }
 
-function singleFileUpload($uploadFileInfo, $uploadPath, $saveFileName, $fileMaxSize){
+function mkdefault_dir(){
+    $albumArtPath = "../art/";
+    $thumbnailPath = "../art/artS/";
+    $mp3Path = "../mp3/";
+    $mp3PrePath = "../mp3/pre/";
 
+    if (!file_exists($albumArtPath)) {
+        mkdir($albumArtPath, 0775, true);
+    }
+
+    if (!file_exists($thumbnailPath)) {
+        mkdir($thumbnailPath, 0775, true);
+    }
+
+    if (!file_exists($mp3Path)) {
+        mkdir($mp3Path, 0775, true);
+    }
+
+    if (!file_exists($mp3PrePath)) {
+        mkdir($mp3PrePath, 0775, true);
+    }
+}
+
+function singleImgUpload($uploadFileInfo, $uploadPath, $saveFileName, $fileMaxSize){
+    mkdefault_dir();
     $targetDir = $uploadPath;
     $targetFile = $targetDir.basename($saveFileName);
     $imageFileType = pathinfo($targetFile,PATHINFO_EXTENSION);
@@ -111,6 +134,7 @@ function singleFileUpload($uploadFileInfo, $uploadPath, $saveFileName, $fileMaxS
     return $returnArr;
 }
 
+
 function makeThumbnailImage($src, $thumbSrc, $maxHeight, $imgType) {
 
     // 이미지 소스 파일을 읽어 온다.
@@ -144,6 +168,81 @@ function makeThumbnailImage($src, $thumbSrc, $maxHeight, $imgType) {
     }
 
 }
+
+function singleAudioUpload($uploadFileInfo, $uploadPath, $saveFileName){
+    mkdefault_dir();
+    $targetDir = $uploadPath;
+    $targetFile = $targetDir.basename($saveFileName);
+    $fileType = pathinfo($targetFile,PATHINFO_EXTENSION);
+
+    // 이미지 파일이 가짜 이미지 파일 인지 확인
+
+    // 대상 파일이 이미 존재하고 있는지 확인
+    if (file_exists($targetFile)) {
+        $returnArr['msg'][1] = "Sorry, file already exists.";
+        $returnArr['uploadOk'] = 0;
+    }
+
+    // check file size > 0
+    elseif ($uploadFileInfo["size"] <= 0) {
+        $returnArr['msg'][2] = "Sorry, find something Wrong your file check your file size.";
+        $returnArr['uploadOk'] = 0;
+    }
+
+    // check file format == 'mp3'
+    elseif($fileType != "mp3") {
+        $returnArr['msg'][3] = "Sorry, only mp3 files are allowed.";
+        $returnArr['uploadOk'] = 0;
+    }
+    else{
+        $returnArr['uploadOk'] = 1;
+    }
+
+    // 위 모든 점검에 이상이 없는지 확인 후 파일 upload 실시
+    if ($returnArr['uploadOk'] == 0) {
+        $returnArr['msg'][4] = "Sorry, your file was not uploaded.";
+    } else {
+        if (move_uploaded_file($uploadFileInfo["tmp_name"], $targetFile)) {
+            $returnArr['msg'][5] = "The file ". basename( $uploadFileInfo["name"]). " has been uploaded.";
+        } else {
+            $returnArr['msg'][5] = "Sorry, there was an error uploading your file.";
+        }
+    }
+
+    return $returnArr;
+}
+
+function check_file_is_audio( $tmp )
+{
+    $allowed = array(
+        'audio/mpeg', 'audio/x-mpeg', 'audio/mpeg3', 'audio/x-mpeg-3', 'audio/aiff',
+        'audio/mid', 'audio/x-aiff', 'audio/x-mpequrl','audio/midi', 'audio/x-mid',
+        'audio/x-midi','audio/wav','audio/x-wav','audio/xm','audio/x-aac','audio/basic',
+        'audio/flac','audio/mp4','audio/x-matroska','audio/ogg','audio/s3m','audio/x-ms-wax',
+        'audio/xm'
+    );
+
+    // check REAL MIME type
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $type = finfo_file($finfo, $tmp );
+    finfo_close($finfo);
+
+    // check to see if REAL MIME type is inside $allowed array
+    if( in_array($type, $allowed) ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function makePreviewFile($src, $preSrc) {
+    echo $src."<BR>".$preSrc."<BR>";
+    require_once '../model/class.mp3.php';
+    $mp3 = new mp3();
+    var_dump($mp3->cut_mp3($src, $preSrc, 0, 60, 'second', false));
+}
+
 
 
 function pop_message($argMessage){

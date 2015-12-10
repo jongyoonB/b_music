@@ -62,7 +62,7 @@
       <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="genre" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
       <column name="hits" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
-      <column name="url" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="url" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="url_short" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <primary-key name="PRIMARY" columns="title_code"/>
       <foreign-key name="title_info_ibfk_1" columns="album_code" ref-table="album_info" ref-schema="" ref-catalog="b_music" ref-columns="album_code" update-rule="0" delete-rule="3" deferrability="2"/>

@@ -195,17 +195,8 @@ function add_album($argInfo){
 
     $conn = mysqli_connect("jycom.asuscomm.com","b_admin","B!","b_music",3306);
     $query = "insert into album_info (album_title, artist_code, release_date, art_url, artS_url)  VALUES ('".$argInfo['album_title']."', '".$argInfo['artist_code']."', '".$argInfo['release_date']."','".$argInfo['album_art']."','".$argInfo['album_artS']."')";
-    mysqli_query(DB_CONN(), $query) or die("insert album data Failed");
-
-    mysqli_query($conn,$query);
-
+    $exeResult = mysqli_query($conn,$query) or die("insert album data Failed");;
     $Acode = mysqli_insert_id($conn);
-    for($index_i = 0 ; $index_i < count($argInfo['track_num']) ; $index_i ++){
-        $query = "insert into title_info (title_name, track_num, album_code, genre, url, url_short)  VALUES ('".$argInfo['title_name'][$index_i]."', '".$argInfo['track_num'][$index_i]."', '".$Acode."','".$argInfo['genre'][$index_i]."','".$argInfo['url'][$index_i]."','".$argInfo['urlS'][$index_i]."')";
-        //echo $query."<Br>";
-        $exeResult = mysqli_query(DB_CONN(), $query) or die ("insert title data Failed");
-    }
-
 
     $result['result'] = $exeResult;
     $result['Acode'] = $Acode;
@@ -215,6 +206,12 @@ function add_album($argInfo){
 
 function updateThumbnail($artPath, $artSPath, $album_code){
     $query = "update album_info set art_url = '".$artPath."' , artS_url = '".$artSPath."' where album_code = '".$album_code."'";
+    echo $query."<Br>";
+    return mysqli_query(DB_CONN(), $query);
+}
+
+function updateTitleUrl($mp3Path, $mp3PrevPath, $Acode){
+    $query = "update title_info set url = '".$mp3Path."' , url_short = '".$mp3PrevPath."' where album_code = '".$Acode."'";
     echo $query."<Br>";
     return mysqli_query(DB_CONN(), $query);
 }
@@ -320,23 +317,15 @@ function list_title($argPage, $perPage, $arrKey, $arrKeyOption){
 }
 
 //931
-function add_title($argInfo, $Acode){
+function add_title($argInfo, $index, $Acode){
     $conn = mysqli_connect("jycom.asuscomm.com","b_admin","B!","b_music",3306);
-    $query = "insert into title_info (title_name, track_num, album_code, genre, url, url_short)  VALUES ('".$argInfo['album_title']."', '".$argInfo['artist_code']."', '".$argInfo['release_date']."','".$argInfo['album_art']."','".$argInfo['album_artS']."')";
-    mysqli_query(DB_CONN(), $query) or die("insert album data Failed");
-
-    mysqli_query($conn,$query);
-
-    $Acode = mysqli_insert_id($conn);
-    for($index_i = 0 ; $index_i < count($argInfo['track_num']) ; $index_i ++){
-        $query = "insert into title_info (title_name, track_num, album_code, genre, url, url_short)  VALUES ('".$argInfo['title_name'][$index_i]."', '".$argInfo['track_num'][$index_i]."', '".$Acode."','".$argInfo['genre'][$index_i]."','".$argInfo['url'][$index_i]."','".$argInfo['urlS'][$index_i]."')";
-        //echo $query."<Br>";
-        $exeResult = mysqli_query(DB_CONN(), $query) or die ("insert title data Failed");
-    }
-
+    $query = "insert into title_info (title_name, track_num, album_code, genre)  VALUES ('".$argInfo['title_name'][$index]."', '".$argInfo['track_num'][$index]."', '".$Acode."', '".$argInfo['genre'][$index]."')";
+    echo $query."<Br>";
+    $exeResult = mysqli_query($conn,$query) or die("insert title[$index] data Failed");
+    $Tcode = mysqli_insert_id($conn);
 
     $result['result'] = $exeResult;
-    $result['Acode'] = $Acode;
+    $result['Tcode'] = $Tcode;
     return $result;
 }
 

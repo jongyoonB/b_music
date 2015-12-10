@@ -12,9 +12,22 @@ if(!$info){
 }
 
 ?>
+<script>
+    function readImage(inputFile)
+    {
+        if(inputFile.files && inputFile.files[0])
+        {
+            var reader = new FileReader();
+            reader.onload = function(e)
+            {
+                $('#upFile').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(inputFile.files[0]);
+            document.getElementById("upFile").style.display="inherit";
+        }
+    }
+</script>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="../common/plugin/js/jquery.ddslick.js"></script>
 <script type="text/javascript">
     $(function(){
         $("#button_add_input").click(function(event){
@@ -27,12 +40,18 @@ if(!$info){
     })
 </script>
 
+<style>
+ #upFile{
+     display: none;
+ }
+</style>
+
 <form action="../ctrl/main_ctrl.php?func=926" method="post" enctype="multipart/form-data">
-    <div>
-        <span><input name='album_art' type='file'></span><br>
-        <span></span><!--앨범아트 미리보기 창 추가 버튼시 팝업(추가후 새로고침, 리다x)-->
+        <img width="500px" height="500px" id="upFile" src=""><br>
+        <span><input name='album_art' type='file' onchange="readImage(this)"></span><br>
         <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title'></span><br>
         <span>발매일&nbsp:&nbsp<input type="date" name = 'release_date'></span><br>
+    <div>
         <select id="htmlselect" name="artist_code">
             <?php
             for($index_i = 0 ; $index_i < count($info) ; $index_i ++) {
@@ -61,7 +80,6 @@ if(!$info){
         ?>
     </div>
     <input type="button" id="button_add_input" value="곡 추가">
-    </div>
 
     <input type="submit" value="추가">
     <input type="button" value="취소" onclick="history.back()">
