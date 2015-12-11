@@ -8,6 +8,8 @@
 
 $albumArtPath = "../art/";
 $thumbnailPath = "../art/artS/";
+$artistPath = "../artist/";
+$artistSPath = "../artist/artistS/";
 $mp3Path = "../mp3/";
 $mp3PrePath = "../mp3/pre/";
 

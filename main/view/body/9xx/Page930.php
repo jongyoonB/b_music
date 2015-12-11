@@ -8,7 +8,6 @@
 
             </span>
         <span>발매 일</span>
-        <span>????</span>
     </header>
 
 

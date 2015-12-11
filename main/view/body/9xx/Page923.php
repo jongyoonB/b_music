@@ -5,8 +5,17 @@
  * Date: 2015-11-19
  * Time: 오후 8:31
  */
-    $pre_info = $_SESSION['pre_album_info'];
 
+    $pre_info = $_SESSION['pre_info'];
+    /*
+    var_dump($pre_info);
+    echo "<BR>";
+    var_dump($pre_info['artist_info']);
+    echo "<BR>";
+    var_dump($pre_info['album_info']);
+    echo "<BR>";
+    var_dump($pre_info['title_info']);
+    echo "<BR>";*/
 ?>
 <script type="text/javascript">
     $(function(){
@@ -52,9 +61,8 @@
 <form action="../ctrl/main_ctrl.php?func=925" method="post" enctype="multipart/form-data">
     <div>
         <?php
-
-            if($pre_info[0]['art_url']) {
-                $artImg = $albumArtPath . $pre_info[0]['art_url'];
+            if($pre_info['album_info'][0]['art_url']) {
+                $artImg = $albumArtPath . $pre_info['album_info'][0]['art_url'];
             }
             else{
                 $artImg = $albumArtPath . "no_album_art.jpg";
@@ -63,10 +71,19 @@
 
         <span><img id='upFile' src='<?php echo $artImg ?>' height='500' width='500' ></span>
         <span><input name='album_art' type='file' onchange="readImage(this)"></span><br>
-        <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title' value="<?php echo $pre_info[0]['album_title']?>"></span><br>
-        <span>아티스트&nbsp:&nbsp<input type="text" name = 'artist' value="<?php echo $pre_info['artist_info'][0]['artist_name']?>" readonly></span><br>
-        <span>아티스트&nbsp코드&nbsp:&nbsp<input type="text" name = 'artist_code' value="<?php echo $pre_info['artist_info'][0]['artist_code']?>"></span><br>
-        <span>발매일&nbsp:&nbsp<input type="text" name = 'release_date' value="<?php echo $pre_info[0]['release_date']?>"></span>
+        <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title' value="<?php echo $pre_info['album_info'][0]['album_title']?>"></span><br>
+
+        <select id="htmlselect" name="artist_code">
+            <option value="<?php echo $pre_info['artist_info'][0]['artist_code']?>" data-imagesrc="<?php echo $pre_info['artist_info'][0]['artist_image']?>" data-description="<?php echo $pre_info['artist_info'][0]['artist_info']?>"><?php echo $pre_info['artist_info'][0]['artist_name']?></option><br>
+        </select>
+
+        <script>
+            $('#htmlselect').ddslick({
+                onSelected: function(selectedData){
+                }
+            });
+        </script>
+        <span>발매일&nbsp:&nbsp<input type="text" name = 'release_date' value="<?php echo $pre_info['album_info'][0]['release_date']?>"></span>
     </div>
 
     <div id="div_quotes">

@@ -1,7 +1,7 @@
 <div style="width: 100%">
     <header style="width: 100%; border: solid">
         <span>코드</span>
-        <spa`1n>앨범</span>
+        <span>앨범</span>
         <span>아티스트</span>
     </header>
 

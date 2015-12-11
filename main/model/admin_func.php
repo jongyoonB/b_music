@@ -90,11 +90,9 @@ function  detail_info($argCondition, $argSW){
             $target2 = "artist_code";
 
             $query = "select * from"." ".$table." where ".$target." = '".$argCondition."'";
-
-            $arrTemp = returnValue($query);
-
-            $query2 = "select * from"." ".$table2." where ".$target." = '".$argCondition."'";
-            $query3 = "select * from"." ".$table3." where ".$target2." = '".$arrTemp[0]['artist_code']."'";
+            $arrTemp['album_info'] = returnValue($query);
+            $query2 = "select * from"." ".$table2." where ".$target." = '".$argCondition."' order by track_num";
+            $query3 = "select * from"." ".$table3." where ".$target2." = '".$arrTemp['album_info'][0]['artist_code']."'";
             $arrTemp['title_info'] = returnValue($query2);
             $arrTemp['artist_info'] = returnValue($query3);
 
@@ -223,15 +221,13 @@ function artist_info(){
 }
 
 //923
-function modify_album($argAlbum_code, $argInfo){
+function modify_album($argInfo){
 
-    for($index_i = 0 ; $index_i < count($argInfo['title_code']) ; $index_i ++){
-        $query[$index_i] = "update title_info set title_info.title_name = '".$argInfo['title_name'][$index_i]."', title_info.track_num = '".$argInfo['track_num'][$index_i]."', title_info.genre = '".$argInfo['genre'][$index_i]."'";
-        $query[$index_i] .= " where title_code = '".$argInfo['title_code'][$index_i]."'";
-        mysqli_query(DB_CONN(), $query[$index_i]);
-    }
     $query = "update album_info set album_info.album_title = '".$argInfo['album_title']."', album_info.artist_code ='".$argInfo['artist_code']."', album_info.release_date = '".$argInfo['release_date']."'";
-    $query .= " where album_info.artist_code = '".$argAlbum_code."'";
+    if (isset($argInfo['album_art'])){
+        $query .= " , art_url = '".$argInfo['album_art']."', artS_url = '".$argInfo['album_artS']."'";
+    }
+    $query .= " where album_info.artist_code = '".$argInfo['album_code']."'";
     return mysqli_query(DB_CONN(), $query);
 }
 
@@ -323,15 +319,41 @@ function add_title($argInfo, $index, $Acode){
     echo $query."<Br>";
     $exeResult = mysqli_query($conn,$query) or die("insert title[$index] data Failed");
     $Tcode = mysqli_insert_id($conn);
-
     $result['result'] = $exeResult;
     $result['Tcode'] = $Tcode;
     return $result;
 }
 
 //932
-function modify_title(){
+function modify_title($argInfo, $argPreInfo, $index){
 
+    $conn = mysqli_connect("jycom.asuscomm.com","b_admin","B!","b_music",3306);
+    $titleCode_verify = "SELECT count(title_code) from title_info where title_code = '".$argInfo['title_code']."'";
+    echo $titleCode_verify."<Br><BR><BR>";
+    $result = mysqli_query($conn, $titleCode_verify);
+    $result = mysqli_fetch_array($result);
+    echo $result[0]."<BR><BR><BR>";
+    if($result[0] == 1){
+        $query = "update title_info set title_info.title_name = '".$argInfo['title_name'][$index]."', title_info.track_num = '".$argInfo['track_num'][$index]."', title_info.genre = '".$argInfo['genre'][$index]."'";
+        $query .= " where title_code = '".$argInfo['title_code']."'";
+        $result = mysqli_query(DB_CONN(), $query);
+        $query_result = null;
+        echo "Query = ".$query."<Br>";
+    }
+
+
+    else{
+        $query = "insert into title_info (title_name, track_num, album_code, genre) VALUES ('".$argInfo['title_name'][$index]."', '".$argInfo['track_num'][$index]."','".$argPreInfo['album_info'][0]['album_code']."', '".$argInfo['genre'][$index]."')";
+        $result = mysqli_query($conn, $query);
+        $query_result = mysqli_insert_id($conn);
+        echo "Query2 = ".$query."<Br>";
+    }
+    echo "<BR>";
+    if(!$result){
+        pop_message("Error while update title");
+        redirect_to_ctrl(923, null);
+    }
+    return $query_result;
 }
 
 //933

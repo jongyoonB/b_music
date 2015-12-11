@@ -102,8 +102,10 @@ function singleImgUpload($uploadFileInfo, $uploadPath, $saveFileName, $fileMaxSi
 
     // 대상 파일이 이미 존재하고 있는지 확인
     if (file_exists($targetFile)) {
-        $returnArr['msg'][1] = "Sorry, file already exists.";
-        $returnArr['uploadOk'] = 0;
+        if(!unlink($targetFile)){
+            $returnArr['msg'][1] = "Sorry, file already exists.";
+            $returnArr['uploadOk'] = 0;
+        }
     }
 
     // 파일의 SIZE가 정해진 크기 이내에 있는지 확인
@@ -175,12 +177,14 @@ function singleAudioUpload($uploadFileInfo, $uploadPath, $saveFileName){
     $targetFile = $targetDir.basename($saveFileName);
     $fileType = pathinfo($targetFile,PATHINFO_EXTENSION);
 
-    // 이미지 파일이 가짜 이미지 파일 인지 확인
 
-    // 대상 파일이 이미 존재하고 있는지 확인
+    // if_exists -> delete file
     if (file_exists($targetFile)) {
-        $returnArr['msg'][1] = "Sorry, file already exists.";
-        $returnArr['uploadOk'] = 0;
+        if(!unlink($targetFile));
+        {
+            $returnArr['msg'][1] = "Can not Delete exists file";
+            $returnArr['uploadOk'] = 0;
+        }
     }
 
     // check file size > 0

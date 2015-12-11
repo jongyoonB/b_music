@@ -12,7 +12,7 @@
     <section style="width: 100%; border:solid">
         <?php
 
-        $list = $_SESSION['member_info'];
+        $list = $_SESSION['member_list'];
         $pageInfo = $_SESSION['pageInfo'];
         for($index_i = 0 ; $index_i < count($list)-1 ; $index_i++) {
 

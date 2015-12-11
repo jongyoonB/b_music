@@ -60,7 +60,7 @@
       <column name="title_name" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
       <column name="track_num" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="album_code" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="genre" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="genre" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12" def="J1VOS05PV04n"/>
       <column name="hits" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
       <column name="url" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
       <column name="url_short" sqlType="LONGTEXT" precision="2147483647" scale="0" nullable="true" jdbcType="-1"/>
