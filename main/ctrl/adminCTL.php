@@ -7,11 +7,12 @@
  */
 
 
-
 function adminCTL($func){
     include_once '../model/admin_func.php';
     include_once '../model/song_list.php';
     include_once '../common/path.php';
+    require_once '../common/plugin/getid3/getid3.php';
+
 
     $sub = intval(($func%100)/10);
     $eachPageLimit = array(
@@ -47,16 +48,18 @@ function adminCTL($func){
      * 921 앨범 상세 - view
      * 922 - view, 926 앨범 추가
      * 923 - view, 925 앨범 수정
-     * 924 앨범 삭제
      *
-     * 930 곡 조회 -> 앨범 상세
-     * 931 곡 추가 - view
-     * 932 곡 수정 - view
+     * 930 곡 조회 -> 곡 상세
+     * 932 곡 수정 -> 921 with title_code
      * 933 곡 삭제
      */
     switch($func){
 
         case 910:{
+            if(isset($_SESSION['pre_member_info'])){
+                $_SESSION['pre_member_info']=null;
+                unset($_SESSION['pre_member_info']);
+            }
             $arr = list_member($currentPage, $perPage, $_REQUEST['key'], $_SESSION['key_option']);
             $_SESSION['member_list'] = $arr;
             $pageInfo = pageInfo($currentPage, $arr['count'],$perPage,$perBlock);
@@ -68,7 +71,7 @@ function adminCTL($func){
         case 911:{
             $target = isset($_REQUEST['target']) ? $_REQUEST['target'] : null;
             if($target) {
-                $member_info = detail_info($target,$sub);
+                $member_info = detail_info($target,$sub,null);
                 $_SESSION['member_info'] = $member_info;
             }
             else{
@@ -87,7 +90,6 @@ function adminCTL($func){
                 $info['nick'] = isset($_POST['nick']) ? $_POST['nick'] : null;
                 $info['status'] = isset($_POST['status']) ? $_POST['status'] : null;
                 modify_member($_SESSION['pre_member_info']['id'], $info) or die("Query Error - Modify member");
-                $_SESSION['pre_member_info']=null;
                 $func = 910;
                 echo redirect_to_ctrl($func,null);
             }
@@ -131,7 +133,7 @@ function adminCTL($func){
 
         case 921:{
             $target = isset($_REQUEST['target']) ? $_REQUEST['target'] : null;
-            $detail_album = detail_info($target, $sub);
+            $detail_album = detail_info($target, $sub,null);
             $_SESSION['detail_album'] = $detail_album;
             echo redirect_to_view($func,null);
             break;
@@ -147,15 +149,17 @@ function adminCTL($func){
 
         case 923:{
             $target = isset($_REQUEST['target']) ? $_REQUEST['target'] : null;
+            $title_code = isset($_REQUEST['title_code']) ? $_REQUEST['title_code'] : null;
 
             if($target){
-                $pre_info = detail_info($target, $sub);
+                $pre_info = detail_info($target, $sub, $title_code);
 
                 $_SESSION['pre_info'] = $pre_info;
             }
             else{
                 die("No Target");
             }
+
             echo redirect_to_view($func,null);
             break;
         }
@@ -175,18 +179,18 @@ function adminCTL($func){
 
         //925
         case 925:{
-            $albumArtPath = "../art/";
-            $thumbnailPath = "../art/artS/";
-            $mp3Path = "../mp3/";
-            $mp3PrePath = "../mp3/pre/";
+
 
             $thumbnailMaxHeight = 100;
             $fileMaxSize = 2000000;
-            $info['album_code'] = isset($_SESSION['pre_info'][0]['album_code']) ? $_SESSION['pre_info'][0]['album_code'] : null;
+            $info['album_code'] = isset($_SESSION['pre_info']['album_info'][0]['album_code']) ? $_SESSION['pre_info']['album_info'][0]['album_code'] : null;
             $info['album_title'] = isset($_POST['album_title']) ? $_POST['album_title'] : null;
+            $albumArtPath = "../mp3/".$info['album_code']."/art/";
+            $mp3Path = "../mp3/".$info['album_code']."/mp3/";
+            $mp3PrePath = "../mp3/".$info['album_code']."/mp3/pre/";
             if(!isset($_FILES['album_art'])){
-                $info['album_art'] = $_SESSION['pre_info'][0]['art_url'];
-                $info['album_artS'] = $_SESSION['pre_info'][0]['artS_url'];
+                $info['album_art'] = $albumArtPath."cover.jpg";
+                $info['album_artS'] = $albumArtPath."thumbnail.jpg";
             }
             $info['release_date'] = isset($_POST['release_date']) ? $_POST['release_date'] : null;
             $info['artist'] = isset($_POST['artist']) ? $_POST['artist'] : null;
@@ -211,19 +215,17 @@ function adminCTL($func){
 
             if( $upLoadImgInfo['name'] && $upLoadImgInfo['error'] == 0){
                 $imgType = pathinfo($upLoadImgInfo['name'],PATHINFO_EXTENSION); //이미지 파일 확장자 추출
-                $fileName = strval($info['album_code']);
+                $fileName = "cover";
                 $fileNameWithExt = $fileName.".".strval($imgType);
-                $thumbnailWithExt = $fileName."_S".".".strval($imgType);
+                $thumbnailWithExt = "thumbnail".".".strval($imgType);
                 $upload_result = singleImgUpload($upLoadImgInfo, $albumArtPath, $fileNameWithExt, $fileMaxSize);  // commonLIB.php 포함 함수
                 //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";
                 if( $upload_result['uploadOk'] ){ // 업로드가 성공 했다면.
-                    $info['album_art'] = $fileNameWithExt; // pfimage 값 설정
                     // 이미지 파일이 jpg, png, gif 포맷이면 썸네일 이미지 생성
                     if( $imgType == "jpg" || $imgType == "jpeg" || $imgType == "png" || $imgType == "gif"){
                         $src = $albumArtPath.strval($fileNameWithExt);
-                        $thumbSrc = $thumbnailPath.strval($thumbnailWithExt);
+                        $thumbSrc = $albumArtPath.strval($thumbnailWithExt);
                         makeThumbnailImage($src, $thumbSrc, $thumbnailMaxHeight, $imgType);
-                        $info['album_artS'] = $thumbnailWithExt; // psimage 값 설정
                     }
                 }
             }
@@ -319,12 +321,8 @@ function adminCTL($func){
 
         case 926:{
             //fileInfo lib
-            require_once '../common/plugin/getid3/getid3.php';
 
-            $albumArtPath = "../art/";
-            $thumbnailPath = "../art/artS/";
-            $mp3Path = "../mp3/";
-            $mp3PrePath = "../mp3/pre/";
+
 
             $thumbnailMaxHeight = 100;
             $fileMaxSize = 2000000;
@@ -351,7 +349,9 @@ function adminCTL($func){
 
             else{
                 $Acode = $add_result['Acode'];
-
+                $albumArtPath = "../mp3/$Acode/art/";
+                $mp3Path = "../mp3/$Acode/mp3/";
+                $mp3PrePath = "../mp3/$Acode/mp3/pre/";
                 $upLoadImgInfo['name'] = isset($_FILES['album_art']['name']) ? ($_FILES['album_art']['name']) : null;
                 $upLoadImgInfo['tmp_name'] = isset($_FILES['album_art']['tmp_name']) ? ($_FILES['album_art']['tmp_name']) : null;
                 $upLoadImgInfo['type'] = isset($_FILES['album_art']['type']) ? ($_FILES['album_art']['type']) : null;
@@ -361,32 +361,25 @@ function adminCTL($func){
 
             if( $upLoadImgInfo['name'] && $upLoadImgInfo['error'] == 0){
                 $imgType = pathinfo($upLoadImgInfo['name'],PATHINFO_EXTENSION); //이미지 파일 확장자 추출
-                $fileName = strval($Acode);
+                $fileName = "cover";
                 $fileNameWithExt = $fileName.".".strval($imgType);
-                $thumbnailWithExt = $fileName."_S".".".strval($imgType);
+                $thumbnailWithExt = "thumbnail".".".strval($imgType);
+
+
                 $upload_result = singleImgUpload($upLoadImgInfo, $albumArtPath, $fileNameWithExt, $fileMaxSize);  // commonLIB.php 포함 함수
-                //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";
+                //echo "==>".var_dump(iconv_get_enco ding('all'))."<br>";
                 if( $upload_result['uploadOk'] ){ // 업로드가 성공 했다면.
-                    $info['album_art'] = $fileNameWithExt; // pfimage 값 설정
                     // 이미지 파일이 jpg, png, gif 포맷이면 썸네일 이미지 생성
                     if( $imgType == "jpg" || $imgType == "jpeg" || $imgType == "png" || $imgType == "gif"){
                         $src = $albumArtPath.strval($fileNameWithExt);
-                        $thumbSrc = $thumbnailPath.strval($thumbnailWithExt);
+                        $thumbSrc = $albumArtPath.strval($thumbnailWithExt);
                         makeThumbnailImage($src, $thumbSrc, $thumbnailMaxHeight, $imgType);
-                        $info['album_artS'] = $thumbnailWithExt; // psimage 값 설정
                     }
                 }
-            }
-            $update_result = updateThumbnail($info['album_art'], $info['album_artS'], $Acode);
-            if(!$update_result){
-                $func = 922;
-                pop_message("Error while Update Thumbnail");
-                echo redirect_to_view($func, null);
-            }
 
 
-            //mp3 upload
-            else{
+
+                //mp3 upload
                 //loop upload
 
                 for ($index_i = 0; count($info['track_num']); $index_i++) {
@@ -413,7 +406,7 @@ function adminCTL($func){
                     if ($upLoadTitleInfo['name'] && $upLoadTitleInfo['error'] == 0) {
 
                         $fileType = pathinfo($upLoadTitleInfo['name'], PATHINFO_EXTENSION); //파일 확장자 추출
-                        $fileTitleName = strval($Acode) . "-" . strval($info['track_num'][$index_i]);
+                        $fileTitleName = strval($info['track_num'][$index_i]);
                         $fileTitleNameWithExt = $fileTitleName . "." . strval($fileType);
                         $filePreWithExt = $fileTitleName . "_Pre" . "." . strval($fileType);
 
@@ -467,7 +460,7 @@ function adminCTL($func){
 
             }
             $func = 920;
-            echo redirect_to_view($func, null);
+            echo redirect_to_ctrl($func, null);
             break;
         }
 
@@ -481,27 +474,26 @@ function adminCTL($func){
         }
 
 
-        case 931:{
-
-            echo redirect_to_view($func,null);
-            break;
-        }
-
         case 932:{
-            echo redirect_to_view($func,null);
+
+            $func = 923;
+            echo redirect_to_ctrlWithTarget($func,null);
             break;
         }
 
         case 933:{
             $target = isset($_REQUEST['target']) ? $_REQUEST['target'] : null;
+            $track_num = isset($_REQUEST['track_num']) ? $_REQUEST['track_num'] : null;
+            $albumCode = isset($_SESSION['pre_info']['album_info'][0]['album_code']) ? $_SESSION['pre_info']['album_info'][0]['album_code'] : $_REQUEST['album_code'];
+            //$func = isset($_REQUEST['func']) ? $_REQUEST['func'] : null;
             if($target){
-                delete_song($target);
+                delete_title($target, $track_num, $albumCode);
             }
             else{
                 die("No target");
             }
-            $func = 930;
-            echo redirect_to_ctrl($func,null);
+            $func = 923;
+            echo redirect_to_ctrlWithTarget($func,$albumCode);
             break;
         }
         default : {

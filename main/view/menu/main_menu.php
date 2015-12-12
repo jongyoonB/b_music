@@ -25,7 +25,7 @@
  *
 */
 
-$menu_title = array("리스트", "장르", "뮤비");
+$menu_title = array("전체", "장르", "앨범");
 $func = $_REQUEST['func'];
 
 echo "<div>";

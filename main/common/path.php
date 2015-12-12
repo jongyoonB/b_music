@@ -6,11 +6,12 @@
  * Time: 오후 7:09
  */
 
-$albumArtPath = "../art/";
-$thumbnailPath = "../art/artS/";
+
+$defaultPath = "../mp3/";
 $artistPath = "../artist/";
 $artistSPath = "../artist/artistS/";
-$mp3Path = "../mp3/";
-$mp3PrePath = "../mp3/pre/";
+$albumArtPath = "/art/";
+$mp3Path = "/mp3/";
+$mp3PrePath = "/mp3/pre/";
 
 ?>

@@ -8,7 +8,6 @@
 
             </span>
             <span>발매 일</span>
-            <span>????</span>
         </header>
 
 
@@ -18,16 +17,21 @@
                 $list = $_SESSION['list'];
                 $pageName = "menu".$_REQUEST['func'];
                 $pageInfo = $_SESSION[$pageName];
-                /*print_r($list[0]);
-                echo "<br>";
-                print_r($list[0]['곡 명']);
-                echo "<br><br><br>";*/
+                          for($index_i = 0 ; $index_i < count($list)-1 ; $index_i++) {
 
-
-                for($index_i = 0 ; $index_i < count($list)-1 ; $index_i++) {
-
+                    //redirect to detail info
                     $url = "../ctrl/main_ctrl.php?func=".$_REQUEST['func']."&key=".$_REQUEST['key']."&code=".$list[$index_i]['title_code'];
+                    if(file_exists($defaultPath.$list[$index_i]['album_code'].$albumArtPath."thumbnail.jpg")){
+                        $thumbnail = $defaultPath.$list[$index_i]['album_code'].$albumArtPath."thumbnail.jpg";
+                    }
+
+                    else{
+                        $thumbnail = $defaultPath."no_album_artS.jpg";
+                    }
+
+
                     echo "&nbsp<span>".(($pageInfo['currentPage']-1)*$pageInfo['perPage']+$index_i+1)."</span>&nbsp&nbsp";
+                    echo "<span><a href = ".$url."><img src='".$thumbnail."'></a></span>&nbsp&nbsp";
                     echo "<span><a href = ".$url.">".$list[$index_i]['곡 명']."</a></span>&nbsp&nbsp";
                     echo "<span>".$list[$index_i]['아티스트']."</span>&nbsp&nbsp";
                     echo "<span>".$list[$index_i]['앨범']."</span>&nbsp&nbsp";

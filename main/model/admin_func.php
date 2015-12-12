@@ -7,6 +7,7 @@
  */
 
 include_once 'common_func.php';
+include_once '../common/path.php';
 
 //910
 function list_member($argPage, $perPage, $arrKey, $arrKeyOption){
@@ -68,43 +69,6 @@ function list_member($argPage, $perPage, $arrKey, $arrKeyOption){
     return $arrTemp;
 }
 
-//911, 921
-function  detail_info($argCondition, $argSW){
-    switch($argSW){
-        case 1:{
-            $table = "member";
-            $target = "id";
-            $query = "select * from"." ".$table." where ".$target." = '".$argCondition."'";
-            $result = mysqli_query(DB_CONN(), $query);
-            $arrTemp =  mysqli_fetch_array($result);
-            break;
-        }
-
-        case 2:
-        case 3:{
-            $table = "album_info";
-            $table2 = "title_info";
-            $table3 = "artist";
-
-            $target = "album_code";
-            $target2 = "artist_code";
-
-            $query = "select * from"." ".$table." where ".$target." = '".$argCondition."'";
-            $arrTemp['album_info'] = returnValue($query);
-            $query2 = "select * from"." ".$table2." where ".$target." = '".$argCondition."' order by track_num";
-            $query3 = "select * from"." ".$table3." where ".$target2." = '".$arrTemp['album_info'][0]['artist_code']."'";
-            $arrTemp['title_info'] = returnValue($query2);
-            $arrTemp['artist_info'] = returnValue($query3);
-
-
-            break;
-        }
-    }
-
-
-    return $arrTemp;
-}
-
 //912
 function modify_member($argID, $argInfo){
     $query = "update member set password = '".$argInfo['password']."', e_mail = '".$argInfo['e_mail']."', nick = '".$argInfo['nick']."', status = '".$argInfo['status']."' where id='".$argID."'";
@@ -126,86 +90,19 @@ function member_info($argID){
     return mysqli_fetch_array($result);
 }
 
-//920
-function list_album($argPage, $perPage, $arrKey, $arrKeyOption){
-
-    $query = "select * from album_list";
-    $query2 = "select count(*) from album_list";
-
-    if($arrKey) {
-        $query .= " where ";
-        $query2 .= " where ";
-        if ($arrKeyOption) {
-
-            for ($index_i = 0; $index_i < count($arrKeyOption); $index_i++) {
-                switch ($arrKeyOption[$index_i]) {
-
-                    case "title": {
-                        $query .= "`앨범 명` like = '%".$arrKey."%'";
-                        $query2 .= "`앨범 명` like = '%".$arrKey."%'";
-                        break;
-                    }
-
-                    case "artist": {
-                        $query .= "`아티스트` like = '%".$arrKey."%'";
-                        $query2 .= "`아티스트` like = '%".$arrKey."%'";
-                        break;
-                    }
-
-                    default: {
-                        break;
-                    }
-                }
-                if (($index_i + 1) != count($arrKeyOption)) {
-                    $query .= " or ";
-                    $query2 .= " or ";
-                }
-            }
-
-        }
-        else{
-            $query .= "`앨범 명` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
-            $query2 .= "`앨범 명` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
-
-        }
-    }
-
-    //echo $query2."<br>";
-
-    $query .= " limit ".(($argPage-1) * $perPage).", ".$perPage;
-
-
-    $arrTemp = returnValue($query);
-    $count = mysqli_fetch_array(mysqli_query(DB_CONN(), $query2));
-    $arrTemp['count'] = $count[0];
-
-    /*echo $query."<Br>";
-    echo $query2."<Br>";
-    print_r($arrTemp);*/
-
-    return $arrTemp;
-
-}
-
 
 //922
 function add_album($argInfo){
 
     $conn = mysqli_connect("jycom.asuscomm.com","b_admin","B!","b_music",3306);
-    $query = "insert into album_info (album_title, artist_code, release_date, art_url, artS_url)  VALUES ('".$argInfo['album_title']."', '".$argInfo['artist_code']."', '".$argInfo['release_date']."','".$argInfo['album_art']."','".$argInfo['album_artS']."')";
+    $query = "insert into album_info (album_title, artist_code, release_date)  VALUES ('".$argInfo['album_title']."', '".$argInfo['artist_code']."', '".$argInfo['release_date']."')";
     $exeResult = mysqli_query($conn,$query) or die("insert album data Failed");;
     $Acode = mysqli_insert_id($conn);
-
+    mkdefault_dir($Acode);
     $result['result'] = $exeResult;
     $result['Acode'] = $Acode;
     return $result;
 
-}
-
-function updateThumbnail($artPath, $artSPath, $album_code){
-    $query = "update album_info set art_url = '".$artPath."' , artS_url = '".$artSPath."' where album_code = '".$album_code."'";
-    echo $query."<Br>";
-    return mysqli_query(DB_CONN(), $query);
 }
 
 function updateTitleUrl($mp3Path, $mp3PrevPath, $Acode){
@@ -316,7 +213,6 @@ function list_title($argPage, $perPage, $arrKey, $arrKeyOption){
 function add_title($argInfo, $index, $Acode){
     $conn = mysqli_connect("jycom.asuscomm.com","b_admin","B!","b_music",3306);
     $query = "insert into title_info (title_name, track_num, album_code, genre)  VALUES ('".$argInfo['title_name'][$index]."', '".$argInfo['track_num'][$index]."', '".$Acode."', '".$argInfo['genre'][$index]."')";
-    echo $query."<Br>";
     $exeResult = mysqli_query($conn,$query) or die("insert title[$index] data Failed");
     $Tcode = mysqli_insert_id($conn);
     $result['result'] = $exeResult;
@@ -329,16 +225,16 @@ function modify_title($argInfo, $argPreInfo, $index){
 
     $conn = mysqli_connect("jycom.asuscomm.com","b_admin","B!","b_music",3306);
     $titleCode_verify = "SELECT count(title_code) from title_info where title_code = '".$argInfo['title_code']."'";
-    echo $titleCode_verify."<Br><BR><BR>";
+    //echo $titleCode_verify."<Br><BR><BR>";
     $result = mysqli_query($conn, $titleCode_verify);
     $result = mysqli_fetch_array($result);
-    echo $result[0]."<BR><BR><BR>";
+    //echo $result[0]."<BR><BR><BR>";
     if($result[0] == 1){
         $query = "update title_info set title_info.title_name = '".$argInfo['title_name'][$index]."', title_info.track_num = '".$argInfo['track_num'][$index]."', title_info.genre = '".$argInfo['genre'][$index]."'";
         $query .= " where title_code = '".$argInfo['title_code']."'";
         $result = mysqli_query(DB_CONN(), $query);
         $query_result = null;
-        echo "Query = ".$query."<Br>";
+        //echo "Query = ".$query."<Br>";
     }
 
 
@@ -346,9 +242,9 @@ function modify_title($argInfo, $argPreInfo, $index){
         $query = "insert into title_info (title_name, track_num, album_code, genre) VALUES ('".$argInfo['title_name'][$index]."', '".$argInfo['track_num'][$index]."','".$argPreInfo['album_info'][0]['album_code']."', '".$argInfo['genre'][$index]."')";
         $result = mysqli_query($conn, $query);
         $query_result = mysqli_insert_id($conn);
-        echo "Query2 = ".$query."<Br>";
+        //echo "Query2 = ".$query."<Br>";
     }
-    echo "<BR>";
+    //echo "<BR>";
     if(!$result){
         pop_message("Error while update title");
         redirect_to_ctrl(923, null);
@@ -357,9 +253,24 @@ function modify_title($argInfo, $argPreInfo, $index){
 }
 
 //933
-function delete_song($argCode){
-    $query = "delete from title_info where title_code ='".$argCode."'";
-    return mysqli_query(DB_CONN(), $query);
+function delete_title($argTarget, $argTrackNum ,$argAlbum_code){
+
+    $defaultPath = "../mp3/";
+    $mp3Path = "/mp3/";
+    $mp3PrePath = "/mp3/pre/";
+
+    $mp3Path = $defaultPath.$argAlbum_code.$mp3Path.$argTrackNum.".mp3";
+    $mp3PrePath = $defaultPath.$argAlbum_code.$mp3PrePath.$argTrackNum."_Pre.mp3";
+
+    $query = "delete from title_info where title_code ='".$argTarget."'";
+    /*echo $query."<Br>";
+    echo $mp3Path."<BR>";
+    echo $mp3PrePath."<BR>";*/
+    mysqli_query(DB_CONN(), $query);
+    if(file_exists($mp3Path) && file_exists($mp3PrePath)){
+        unlink("$mp3Path");
+        unlink("$mp3PrePath");
+    }
 }
 
 ?>

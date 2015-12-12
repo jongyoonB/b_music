@@ -9,9 +9,10 @@ include_once (dirname(__FILE__).'/../model/common_func.php');
 include_once (dirname(__FILE__).'/../model/music_player.php');
 
 //리스트 및 검색
-function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $perPage){
+function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $perPage, $target){
     /*sub query
-    $query = "select title_info.code, title_info.title '곡 명', album_info.title '앨범', artist.name '아티스트', title_info.genre '장르', album_info.release_date '발매 일', title_info.hits 'hits', title_info.url 'url' from title_info, album_info,artist WHERE title_info.album_code = album_info.code and album_info.artist_code = artist.code;";*/
+    $query = "
+    select title_info.code, title_info.title '곡 명', album_info.title '앨범', artist.name '아티스트', title_info.genre '장르', album_info.release_date '발매 일', title_info.hits 'hits', title_info.url 'url' from title_info, album_info,artist WHERE title_info.album_code = album_info.code and album_info.artist_code = artist.code;";*/
 
     /*join
     $query = "select title_info.title '곡 명', album_info.title '앨범', artist.name '아티스트' ,title_info.genre '장르', album_info.release_date '발매 일' from title_info INNER JOIN album_info on title_info.album_code = album_info.code INNER join artist on album_info.artist_code = artist.code;";*/
@@ -20,6 +21,8 @@ function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $p
     $query = "select * from song_list";
     $query2 = "select count(*) from song_list";
     /*var_dump($arrKeyOption);
+    echo "<Br><Br>";
+    echo $arrKeyOption[0];
     echo "<Br><Br>";
     echo count($arrKeyOption)."<br><br>";*/
     if($arrKey) {
@@ -30,19 +33,19 @@ function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $p
             for ($index_i = 0; $index_i < count($arrKeyOption); $index_i++) {
                 switch ($arrKeyOption[$index_i]) {
 
-                    case "title": {
+                    case "Title": {
                         $query .= "`곡 명` like '%" . $arrKey . "%'";
                         $query2 .= "`곡 명` like '%" . $arrKey . "%'";
                         break;
                     }
 
-                    case "album": {
+                    case "Album": {
                         $query .= "`앨범` like '%" . $arrKey . "%'";
                         $query2 .= "`앨범` like '%" . $arrKey . "%'";
                         break;
                     }
 
-                    case "artist": {
+                    case "Artist": {
                         $query .= "`아티스트` like '%" . $arrKey . "%'";
                         $query2 .= "`아티스트` like '%" . $arrKey . "%'";
                         break;
@@ -61,12 +64,21 @@ function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $p
                 $query .= ") and `장르` like '%".$argGenre."%'";
             }
             else{
+                if($argGenre){
+                    $query .= " and `장르` like '%".$argGenre."%'";
+                    $query2 .= " and `장르` like '%".$argGenre."%'";
+                }
+                $query .=")";
                 $query .=")";
             }
         }
         else{
             $query .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%')";
             $query2 .= "`곡 명` like '%" . $arrKey . "%' or `앨범` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%')";
+            if($target){
+                $query .= " and title_code = $target";
+                $query2 .= " and title_code = $target";
+            }
 
             if($argGenre){
                 $query .= " and `장르` like '%".$argGenre."%'";
@@ -78,6 +90,14 @@ function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $p
         if($argGenre){
             $query .= " where `장르` like '".$argGenre."'";
             $query2 .= " where `장르` like '".$argGenre."'";
+            if($target){
+                $query .= " and title_code = $target";
+                $query2 .= " and title_code = $target";
+            }
+        }
+        elseif ($target) {
+            $query .= " where title_code = '".$target."'";
+            $query2 .= " where title_code = '".$target."'";
         }
 
     }
@@ -91,7 +111,8 @@ function song_list($orderByHits, $argPage, $argGenre, $arrKey, $arrKeyOption, $p
     $arrTemp = returnValue($query);
     $count = mysqli_fetch_array(mysqli_query(DB_CONN(), $query2));
     $arrTemp['count'] = $count[0];
-
+    /*echo $query;
+    exit();*/
     /*echo $query."<Br>";
     echo $query2."<Br>";
     print_r($arrTemp);*/

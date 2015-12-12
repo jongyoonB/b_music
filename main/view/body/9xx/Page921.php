@@ -22,11 +22,11 @@
     <div>
             <?php
 
-        if(($pre_info['title_info'] !=null)){
-            for ($index_i = 0 ; $index_i < count($pre_info['title_info']) ; $index_i ++){
-                echo "<span>타이틀&nbsp:&nbsp<input type='text' name = 'title_name[]' value='".$pre_info['title_info'][$index_i]['title_name']."'</span>&nbsp&nbsp";
-                echo "<span>트랙&nbsp넘버&nbsp:&nbsp<input type='text' name = 'track_num[]' value='".$pre_info['title_info'][$index_i]['track_num']."'</span>&nbsp&nbsp";
-                echo "<span>장르&nbsp:&nbsp<input type='text' name = 'genre[]' value='".$pre_info['title_info'][$index_i]['genre']."'</span>&nbsp&nbsp<br>";
+        if(($song_info['title_info'] !=null)){
+            for ($index_i = 0 ; $index_i < count($song_info['title_info']) ; $index_i ++){
+                echo "<span>타이틀&nbsp:&nbsp<input type='text' name = 'title_name[]' value='".$song_info['title_info'][$index_i]['title_name']."'</span>&nbsp&nbsp";
+                echo "<span>트랙&nbsp넘버&nbsp:&nbsp<input type='text' name = 'track_num[]' value='".$song_info['title_info'][$index_i]['track_num']."'</span>&nbsp&nbsp";
+                echo "<span>장르&nbsp:&nbsp<input type='text' name = 'genre[]' value='".$song_info['title_info'][$index_i]['genre']."'</span>&nbsp&nbsp<br>";
             }
         }
         else{

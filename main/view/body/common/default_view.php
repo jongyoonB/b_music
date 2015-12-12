@@ -17,6 +17,7 @@ if(!$_REQUEST['func']){
 
 else{
     $menu = intval($_REQUEST['func'] / 100);
+    $sub = ($_REQUEST['func'] /100 - intval($_REQUEST['func'] / 100))*10;
 //echo $menu."<br>";
     switch($menu){
 
@@ -24,6 +25,21 @@ else{
         case 3:
         {
             $path = (dirname(__FILE__)."/SongList.php");
+            break;
+        }
+
+        case 4:{
+            $path = (dirname(__FILE__)."/AlbumList.php");
+            break;
+        }
+
+        case 5:{
+            $path = (dirname(__FILE__)."/detail_song.php");
+            break;
+        }
+
+        case 6:{
+            $path = (dirname(__FILE__)."/detail_album.php");
             break;
         }
 

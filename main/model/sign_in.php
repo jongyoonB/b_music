@@ -64,5 +64,4 @@ function userStatus($argID){
 function signOut($argID){
     $query = "update member set ip_add = null where id = '".$argID."'";
     mysqli_query(DB_CONN(), $query);
-    session_destroy();
 }

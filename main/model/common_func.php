@@ -35,6 +35,7 @@ function DB_CONN(){
 
 function returnValue($argQuery){
     $result = mysqli_query(DB_CONN(), $argQuery);
+    $arrTemp = null;
     while($row = mysqli_fetch_array($result)){
         $arrTemp[] = $row;
     }
@@ -44,6 +45,9 @@ function returnValue($argQuery){
 function pageInfo($argPage, $cntRecord, $perPage, $perBlock){
     $page['numbOfData'] = $cntRecord;
     $page['totalP'] = ceil($page['numbOfData'] / $perPage);
+    if($page['totalP'] == 0){
+        $page['totalP'] = 1;
+    }
     $page['currentPage'] = ($argPage <= $page['totalP']) ? $argPage : $argPage-1;
     //$page['currentPage'] = $argPage;
     $page['block'] = ceil($argPage / $perBlock);
@@ -61,31 +65,27 @@ function pageInfo($argPage, $cntRecord, $perPage, $perBlock){
 
 }
 
-function mkdefault_dir(){
-    $albumArtPath = "../art/";
-    $thumbnailPath = "../art/artS/";
-    $mp3Path = "../mp3/";
-    $mp3PrePath = "../mp3/pre/";
+function mkdefault_dir($argCode){
 
-    if (!file_exists($albumArtPath)) {
-        mkdir($albumArtPath, 0775, true);
+    $path = array(
+        'default' => "../mp3",
+        'albumPath' => "../mp3/$argCode",
+        'albumArtPath' => "../mp3/$argCode/art",
+        'mp3Path' => "../mp3/$argCode/mp3",
+        'mp3PrePath' => "../mp3/$argCode/mp3/pre"
+        );
+
+    foreach($path as $index){
+        if (!file_exists($index)) {
+            mkdir($index, 0775, true);
+        }
     }
+    if($argCode){
 
-    if (!file_exists($thumbnailPath)) {
-        mkdir($thumbnailPath, 0775, true);
-    }
-
-    if (!file_exists($mp3Path)) {
-        mkdir($mp3Path, 0775, true);
-    }
-
-    if (!file_exists($mp3PrePath)) {
-        mkdir($mp3PrePath, 0775, true);
     }
 }
 
 function singleImgUpload($uploadFileInfo, $uploadPath, $saveFileName, $fileMaxSize){
-    mkdefault_dir();
     $targetDir = $uploadPath;
     $targetFile = $targetDir.basename($saveFileName);
     $imageFileType = pathinfo($targetFile,PATHINFO_EXTENSION);
@@ -172,9 +172,9 @@ function makeThumbnailImage($src, $thumbSrc, $maxHeight, $imgType) {
 }
 
 function singleAudioUpload($uploadFileInfo, $uploadPath, $saveFileName){
-    mkdefault_dir();
     $targetDir = $uploadPath;
     $targetFile = $targetDir.basename($saveFileName);
+
     $fileType = pathinfo($targetFile,PATHINFO_EXTENSION);
 
 
@@ -212,7 +212,6 @@ function singleAudioUpload($uploadFileInfo, $uploadPath, $saveFileName){
             $returnArr['msg'][5] = "Sorry, there was an error uploading your file.";
         }
     }
-
     return $returnArr;
 }
 
@@ -241,12 +240,114 @@ function check_file_is_audio( $tmp )
 
 
 function makePreviewFile($src, $preSrc) {
-    echo $src."<BR>".$preSrc."<BR>";
+    //echo $src."<BR>".$preSrc."<BR>";
     require_once '../model/class.mp3.php';
     $mp3 = new mp3();
     var_dump($mp3->cut_mp3($src, $preSrc, 0, 60, 'second', false));
 }
 
+
+//920
+function list_album($argPage, $perPage, $arrKey, $arrKeyOption){
+
+    $query = "select * from album_list ORDER BY album_code";
+    $query2 = "select count(*) from album_list";
+
+    if($arrKey) {
+        $query .= " where ";
+        $query2 .= " where ";
+        if ($arrKeyOption) {
+
+            for ($index_i = 0; $index_i < count($arrKeyOption); $index_i++) {
+                switch ($arrKeyOption[$index_i]) {
+
+                    case "title": {
+                        $query .= "`앨범 명` like = '%".$arrKey."%'";
+                        $query2 .= "`앨범 명` like = '%".$arrKey."%'";
+                        break;
+                    }
+
+                    case "artist": {
+                        $query .= "`아티스트` like = '%".$arrKey."%'";
+                        $query2 .= "`아티스트` like = '%".$arrKey."%'";
+                        break;
+                    }
+
+                    default: {
+                        break;
+                    }
+                }
+                if (($index_i + 1) != count($arrKeyOption)) {
+                    $query .= " or ";
+                    $query2 .= " or ";
+                }
+            }
+
+        }
+        else{
+            $query .= "`앨범 명` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+            $query2 .= "`앨범 명` like '%" . $arrKey . "%' or `아티스트` like '%" . $arrKey . "%'";
+
+        }
+    }
+
+    //echo $query2."<br>";
+
+    $query .= " limit ".(($argPage-1) * $perPage).", ".$perPage;
+    //echo $query2."<br>";
+
+    $arrTemp = returnValue($query);
+    $count = mysqli_fetch_array(mysqli_query(DB_CONN(), $query2));
+    $arrTemp['count'] = $count[0];
+
+    /*echo $query."<Br>";
+    echo $query2."<Br>";
+    print_r($arrTemp);*/
+
+    return $arrTemp;
+
+}
+
+
+
+//911, 921, 923
+function  detail_info($argCondition, $argSW, $title_code){
+    switch($argSW){
+        case 1:{
+            $table = "member";
+            $target = "id";
+            $query = "select * from"." ".$table." where ".$target." = '".$argCondition."'";
+            $result = mysqli_query(DB_CONN(), $query);
+            $arrTemp =  mysqli_fetch_array($result);
+            break;
+        }
+
+        case 2:
+        case 3:{
+            $table = "album_info";
+            $table2 = "title_info";
+            $table3 = "artist";
+
+            $target = "album_code";
+            $target2 = "artist_code";
+            $query = "select * from"." ".$table." where ".$target." = '".$argCondition."'";
+            $arrTemp['album_info'] = returnValue($query);
+            if($title_code)
+            {
+                $argCondition = $title_code;
+                $target = "title_code";
+            }
+            $query2 = "select * from"." ".$table2." where ".$target." = '".$argCondition."' order by track_num";
+            $query3 = "select * from"." ".$table3." where ".$target2." = '".$arrTemp['album_info'][0]['artist_code']."'";
+            $arrTemp['title_info'] = returnValue($query2);
+            $arrTemp['artist_info'] = returnValue($query3);
+            break;
+        }
+
+    }
+    echo $query2."<BR>";
+    return $arrTemp;
+}
 
 
 function pop_message($argMessage){
@@ -270,4 +371,8 @@ function redirect_to_ctrlWithPage($argFunc, $argKey, $argPage){
 
 function redirect_to_ctrlWithSongCode($argFunc, $argCode){
     return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&code=$argCode')</script>";
+}
+
+function redirect_to_ctrlWithTarget($argFunc, $argTarget){
+    return "<script>location.replace('../ctrl/main_ctrl.php?func=$argFunc&target=$argTarget')</script>";
 }

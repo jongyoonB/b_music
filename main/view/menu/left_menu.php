@@ -33,11 +33,12 @@ if($_REQUEST['func']){
     echo "pageName = ".$pageName."<Br>";
     echo "pageNumb = ".$pageNumb."<BR>";*/
     $menu = intval($_REQUEST['func'] / 100);
-    if($menu != 1){
+
+    if($menu != 1 && $menu < 4){
         $sub_menu = array(
             array('전체 리스트', 'TOP 100'),
             array('K-POP', 'POP', 'ROCK', 'ELECTRONIC'),
-            array('MV'),
+            //array('MV'),
         );
 
         for ($index_i = 0; $index_i < count($sub_menu[$menu - 2]); $index_i++) {

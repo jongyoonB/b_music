@@ -6,7 +6,7 @@
  * Time: 오후 8:31
  */
 
-    $pre_info = $_SESSION['pre_info'];
+    $song_info = $_SESSION['pre_info'];
     /*
     var_dump($pre_info);
     echo "<BR>";
@@ -45,11 +45,11 @@
         else{
             <?php
 
-            if($pre_info[0]['art_url']) {
-                $artImg = $albumArtPath . $pre_info[0]['art_url'];
+            if(file_exists($defaultPath.$song_info['album_info'][0]['album_code'])."/cover.jpg") {
+                $artImg = $defaultPath.$song_info['album_info'][0]['album_code']."/cover.jpg";
             }
             else{
-                $artImg = $albumArtPath . "no_album_art.jpg";
+                $artImg = $defaultPath . "no_album_art.jpg";
             }
         ?>
             $('#upFile').attr('src', '<?php echo $artImg ?>');
@@ -61,20 +61,20 @@
 <form action="../ctrl/main_ctrl.php?func=925" method="post" enctype="multipart/form-data">
     <div>
         <?php
-            if($pre_info['album_info'][0]['art_url']) {
-                $artImg = $albumArtPath . $pre_info['album_info'][0]['art_url'];
+            if(file_exists($defaultPath.$song_info['album_info'][0]['album_code'].$albumArtPath."/cover.jpg")) {
+                $artImg = $defaultPath.$song_info['album_info'][0]['album_code'].$albumArtPath."/cover.jpg";
             }
             else{
-                $artImg = $albumArtPath . "no_album_art.jpg";
+                $artImg = $defaultPath . "no_album_art.jpg";
             }
         ?>
 
         <span><img id='upFile' src='<?php echo $artImg ?>' height='500' width='500' ></span>
         <span><input name='album_art' type='file' onchange="readImage(this)"></span><br>
-        <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title' value="<?php echo $pre_info['album_info'][0]['album_title']?>"></span><br>
+        <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title' value="<?php echo $song_info['album_info'][0]['album_title']?>"></span><br>
 
         <select id="htmlselect" name="artist_code">
-            <option value="<?php echo $pre_info['artist_info'][0]['artist_code']?>" data-imagesrc="<?php echo $pre_info['artist_info'][0]['artist_image']?>" data-description="<?php echo $pre_info['artist_info'][0]['artist_info']?>"><?php echo $pre_info['artist_info'][0]['artist_name']?></option><br>
+            <option value="<?php echo $song_info['artist_info'][0]['artist_code']?>" data-imagesrc="<?php echo $song_info['artist_info'][0]['artist_image']?>" data-description="<?php echo $song_info['artist_info'][0]['artist_info']?>"><?php echo $song_info['artist_info'][0]['artist_name']?></option><br>
         </select>
 
         <script>
@@ -83,17 +83,18 @@
                 }
             });
         </script>
-        <span>발매일&nbsp:&nbsp<input type="text" name = 'release_date' value="<?php echo $pre_info['album_info'][0]['release_date']?>"></span>
+        <span>발매일&nbsp:&nbsp<input type="text" name = 'release_date' value="<?php echo $song_info['album_info'][0]['release_date']?>"></span>
     </div>
 
     <div id="div_quotes">
         <?php
-        if(($pre_info['title_info'] !=null)) {
-            for ($index_i = 0; $index_i < count($pre_info['title_info']); $index_i++) {
-                echo "<span>타이틀&nbsp:&nbsp<input type='text' name = 'title_name[]' value='".$pre_info['title_info'][$index_i]['title_name']."'</span>&nbsp&nbsp";
-                echo "<span>트랙&nbsp넘버&nbsp:&nbsp<input type='text' name = 'track_num[]' value='".$pre_info['title_info'][$index_i]['track_num']."'</span>&nbsp&nbsp";
-                echo "<span>장르&nbsp:&nbsp<input type='text' name = 'genre[]' value='".$pre_info['title_info'][$index_i]['genre']."'</span>&nbsp&nbsp";
-                echo "<input name='url[]' type='file'><br>";
+        if(($song_info['title_info'] !=null)) {
+            for ($index_i = 0; $index_i < count($song_info['title_info']); $index_i++) {
+                echo "<span>타이틀&nbsp:&nbsp<input type='text' name = 'title_name[]' value='".$song_info['title_info'][$index_i]['title_name']."' required></span>&nbsp&nbsp";
+                echo "<span>트랙&nbsp넘버&nbsp:&nbsp<input type='text' name = 'track_num[]' value='".$song_info['title_info'][$index_i]['track_num']."' required></span>&nbsp&nbsp";
+                echo "<span>장르&nbsp:&nbsp<input type='text' name = 'genre[]' value='".$song_info['title_info'][$index_i]['genre']."' required></span>&nbsp&nbsp";
+                echo "<input name='url[]' type='file'>";
+                echo "<a href='../ctrl/main_ctrl.php?func=933&target=".$song_info['title_info'][$index_i]['title_code']."&track_num=".$song_info['title_info'][$index_i]['track_num']."'>[곡 삭제]</a><br>";
             }
         }
 

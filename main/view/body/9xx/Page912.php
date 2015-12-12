@@ -16,7 +16,7 @@
     E_mail&nbsp:&nbsp<input type="text" name="e_mail" value="<?php echo $pre_info['e_mail']?>">
     Nick&nbsp:&nbsp<input type="text" name="nick" value="<?php echo $pre_info['nick']?>">
     Status&nbsp:&nbsp<input type="text" name="status" value="<?php echo $pre_info['status']?>">
-    <input type = "hidden" name = "func" value="911">
+    <input type = "hidden" name = "func" value="912">
     <input type="submit" value="수정">
-    <input type="button" onclick="location.replace(-1)";
+    <input type="button" value="취소" onclick="history.back()">
 </form>

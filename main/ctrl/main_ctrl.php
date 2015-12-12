@@ -31,7 +31,8 @@ switch ($menu) {
     }
 
     case 2:
-    case 3:{
+    case 3:
+    case 4:{
         include_once './listCTL.php';
         listCTL($_REQUEST['func']);
         break;
@@ -45,7 +46,7 @@ switch ($menu) {
         break;
     }
     default: {
-        echo redirect_to_view($_REQUEST['func'], $_REQUEST['page'], $_REQUEST['key']);
+        echo redirect_to_view($_REQUEST['func'], null);
         break;
     }
 

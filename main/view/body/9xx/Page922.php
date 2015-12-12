@@ -25,6 +25,9 @@ if(!$info){
             reader.readAsDataURL(inputFile.files[0]);
             document.getElementById("upFile").style.display="inherit";
         }
+        else{
+            document.getElementById("upFile").style.display="none";
+        }
     }
 </script>
 
@@ -49,8 +52,8 @@ if(!$info){
 <form action="../ctrl/main_ctrl.php?func=926" method="post" enctype="multipart/form-data">
         <img width="500px" height="500px" id="upFile" src=""><br>
         <span><input name='album_art' type='file' onchange="readImage(this)"></span><br>
-        <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title'></span><br>
-        <span>발매일&nbsp:&nbsp<input type="date" name = 'release_date'></span><br>
+        <span>앨범&nbsp타이틀&nbsp:&nbsp<input type="text" name = 'album_title' required></span><br>
+        <span>발매일&nbsp:&nbsp<input type="date" name = 'release_date' required></span><br>
     <div>
         <select id="htmlselect" name="artist_code">
             <?php
@@ -79,7 +82,7 @@ if(!$info){
         }
         ?>
     </div>
-    <input type="button" id="button_add_input" value="곡 추가">
+    <input type="button" id="button_add_input" value="곡 추가"><br>
 
     <input type="submit" value="추가">
     <input type="button" value="취소" onclick="history.back()">
