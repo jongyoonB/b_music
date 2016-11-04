@@ -1,4 +1,4 @@
-#基盤のアルバム販売と音楽ストリーミングを提供するサービス
+#基盤のアルバム販売と音楽ストリーミングを提供するサービス(Personal Project)
 
 ##*Enviroment & Requirement*
  * Apache 2.2.15
